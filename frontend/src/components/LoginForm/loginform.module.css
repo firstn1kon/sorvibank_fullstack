@@ -1,0 +1,22 @@
+.container {
+    text-align: center;
+}
+
+.login_form {
+    margin: 0 auto;
+    max-width: 385px;
+    display: flex;
+    flex-direction: column;
+}
+
+.links_block {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px
+}
+
+.button_container {
+    display: flex;
+    justify-content: center;
+}

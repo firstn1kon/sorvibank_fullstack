@@ -1,0 +1,95 @@
+.header {
+    width: 100%;
+    background: #292929;
+    box-shadow: 1px -13px 15px 10px rgba(0,0,0,0.75);
+
+}
+
+.wrapper {
+    background: #292929;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 90px;
+    gap: 10px
+
+}
+
+.logo {
+    max-width: 194px;
+}
+
+.account {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.name {
+    color: #66a3ff;
+    font-size: var(--small-size-text);
+}
+.name:hover {
+    color: #92bdff
+}
+
+.icon {
+    cursor: pointer;
+    position: relative;
+}
+.icon::before {
+    content: "Выйти";
+    position: absolute;
+    right: 26px;
+    top: 50%;
+    transform: translateY(-44%);
+    border-radius: 5px; 
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    padding: 3px;
+    width: 70px;
+    height: 30px;
+    background: #000;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    pointer-events: none;
+}
+
+.icon::after {
+    content: "";
+    position: absolute;
+    right: 26px;
+    top: 50%;
+    transform: translateY(-60%);
+    display: block;
+    rotate: 45deg;
+    justify-content: center;
+    width: 10px;
+    height: 10px;
+    background: #000;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    pointer-events: none;
+}
+
+.icon:hover::before, .icon:hover::after{
+    opacity: 1;
+}
+
+.profile {
+    display: flex;
+    gap: 4px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+
+
+@media (max-width: 576px) {
+    .logo {
+        max-width: 154px;
+    }
+}
+

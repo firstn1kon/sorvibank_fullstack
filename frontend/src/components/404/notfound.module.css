@@ -1,0 +1,29 @@
+.notfound {
+    width: 100vw;
+    padding: 0 15px;
+    height: 100vh;
+    background: #f6f7f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:7px;
+    text-align: center;
+    background-image: url('../../assets/map-bg.svg');
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.logo {
+    width: 400px;
+}
+
+.header {
+    font-size: var(--large--size-text);
+
+}
+
+.desc {
+    color: #666666
+}

@@ -1,0 +1,68 @@
+.button {
+    background: #ffd544;
+    border-radius: 20px;
+    color: rgb(19, 19, 19);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.button:disabled {
+    background: #d5d2d2;
+    cursor: not-allowed;
+}
+
+.button:disabled:hover {
+    background: #d5d2d2;
+}
+
+.button:disabled:active {
+    animation: shake 0.3s ease-in-out;
+}
+
+.button:hover {
+    background: #f1ce4f;
+}
+
+.button:active {
+    transform: scale(0.96);
+}
+
+.button_small {
+    width: 150px;
+    height: 40px;
+}
+
+.button_medium {
+    width: 156px;
+    height: 56px;
+}
+
+.button_large {
+    width: 200px;
+    height: 64px;
+}
+
+.button_expand {
+    width: 100%;
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-5px);
+    }
+    40% {
+        transform: translateX(5px);
+    }
+    60% {
+        transform: translateX(-5px);
+    }
+    80% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

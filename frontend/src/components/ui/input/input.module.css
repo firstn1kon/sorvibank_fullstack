@@ -1,0 +1,90 @@
+.input_container {
+    position: relative;
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 0px;
+    border-radius: 25px;
+
+}
+
+.input_status_disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.input {
+    position: relative;
+    width: 100%;
+    padding: 0px 35px 0px 14px;
+    height: 64px;
+    border-radius: 25px;
+    font-size: var(--main-size-text);
+    box-shadow: 0px 0px 0px 2px rgb(0, 0, 0);
+    z-index: 10;
+    transition: all .3s;
+}
+
+.input:disabled {
+    cursor: not-allowed;
+
+}
+
+input:focus {
+    box-shadow: 0px 0px 0px 3px rgb(54, 84, 183);
+}
+
+.label {
+    content: "";
+    display: block;
+    position: absolute;
+    padding: 0 3px;;
+    top: 0;
+    left: 25px;
+    font-size: var(--small-size-text);
+    background: inherit;
+    z-index: 11;
+}
+
+.error {
+    visibility: hidden;
+    font-size: var(--small-size-text);
+    color: rgb(196, 16, 16);
+    padding-left: 14px;
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    transition: opacity .3s;
+    opacity: 0;
+}
+
+.error_active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.error_value {
+    box-shadow: 0px 0px 0px 3px rgb(196, 16, 16)
+}
+
+.error_value:focus {
+    box-shadow: 0px 0px 0px 3px rgb(196, 16, 16)
+
+}
+
+.icon {
+    position: absolute;
+    top: 30px;
+    right: 22px;
+    z-index: 12;
+}
+
+.icon_click {
+    cursor: pointer;
+}
+
+
+
+
+
+

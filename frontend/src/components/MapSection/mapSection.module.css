@@ -1,0 +1,152 @@
+.map {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 10px;
+    background-image: url('../../assets/map-bg.svg');
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #f9f9f9;
+
+}
+.title {
+    text-align: center;
+}
+
+.title h2 {
+    position: relative;
+    display: inline;
+    margin: 0 auto;
+    font-size: var(--title-section-font-size);
+    font-weight: bold;
+}
+
+
+.title h2::after {
+    content: "";
+    position: absolute;
+    display: block;
+    background: #ffd544;
+    width: 100%;
+    height: 4px;
+    margin: 0 auto;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.title h3 {
+    margin-top: 20px;
+    font-size: var(--large--size-text);
+}
+
+.desc {
+    margin-top: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+}
+
+.phone {
+   align-self: center;
+
+}
+
+
+
+.header {
+    display: block;
+    margin-top: 80px;
+    font-size: var(--large--size-text);
+}
+
+.post_description {
+    font-size: var(--large--size-text);
+    display: block;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.mobile {
+    display: none;
+}
+
+
+
+.map_items {
+    margin-top: 70px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.map_item  {
+    display: flex;
+    width: 50%;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 60px;
+    padding: 5px;
+
+}
+.map_item img  {
+    object-fit: contain;
+
+}
+
+.map_item span  {
+    font-size: var(--main-size-text);
+    margin-top: 0;
+    font-weight:200;
+}
+
+
+@media (max-width: 992px) {
+    .desc {
+        margin-top: 40px;
+    }
+    .map_item  {
+        width: 100%;
+        font-size: 220px;
+    }
+
+    .map_item span  {
+        font-size: 18px;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .desktop {
+        display: none;
+    }
+
+    .post_description {
+        margin-top: 0;
+    }
+    
+
+}
+
+@media (max-width: 576px) {
+    .desc {
+        grid-template-columns: 1fr;
+        justify-items: center;
+    }
+    .header {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .desc {
+        margin-top: 20px;
+
+    }
+
+    .phone {
+        max-width: 300px;
+    }
+    
+}
