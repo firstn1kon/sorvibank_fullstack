@@ -4,26 +4,37 @@ import circles from '../../assets/circles.svg';
 import { useNavigate } from 'react-router';
 import LoginFrom from '../LoginForm/LoginForm';
 import useModal from '../Modal/useModal';
-import { useState } from 'react';
 import ProfileIcon from '../ui/icons/ProfileIcon';
+import { useFetchme } from '../../api/hooks/useFetchMe';
+import { useEffect } from 'react';
+import DotLoader from '../ui/loaders/DotLoader';
 function FirstScreen() {
-    const { openModal, renderModal } = useModal({ Component: <LoginFrom /> });
+    const { openModal, renderModal, closeModal } = useModal({ Component: <LoginFrom /> });
 
     const navigate = useNavigate();
 
-    const [user] = useState(false);
+    const { data: user, isLoading } = useFetchme();
 
     const navigateToLK = () => {
-        if (user) navigate('/login');
-        openModal();
+        if (!user) {
+            openModal();
+        } else {
+            navigate('/account');
+        }
     };
+
+    useEffect(() => {
+        if (user && renderModal) {
+            closeModal();
+        }
+    }, [user, closeModal, renderModal]);
 
     return (
         <section className={styles.mainScreen}>
             <div className="container">
                 <button onClick={navigateToLK} className={styles.btnLk}>
                     <ProfileIcon />
-                    <span>Личный кабинет</span>
+                    {user?.name ?? (isLoading ? <DotLoader bg={'#fff'} /> : 'Войти')}
                 </button>
                 <div className={styles.logo}>
                     <img className={styles.logo_img} src={logo} alt="sorvibank" />

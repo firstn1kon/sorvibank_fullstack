@@ -3,9 +3,10 @@ import PasswordInput from '../ui/input/PasswordInput';
 import Input from '../ui/input/Input';
 import Button from '../ui/button/Button';
 import { Controller, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
 import styles from './registrationForm.module.css';
-
+import { useRegisterUser } from '../../api/hooks/useRegisterUser';
+import Error from '../Error/Error';
+import DotLoader from '../ui/loaders/DotLoader';
 interface IRegistrationFrom {
     name: string;
     login: string;
@@ -18,7 +19,6 @@ const RegistrationForm = () => {
     const {
         control,
         handleSubmit,
-        reset,
         watch,
         setValue,
         formState: { isDirty, isValid, errors },
@@ -29,17 +29,16 @@ const RegistrationForm = () => {
 
     const password = watch('password');
 
-    const navigate = useNavigate();
+    const { mutate: registerUser, error, isPending } = useRegisterUser();
 
     const onSubmit = (data: IRegistrationFrom) => {
-        console.log(data);
-        reset();
-        navigate('/login');
+        registerUser(data);
     };
 
     return (
         <div className={`mt-8 ${styles.container}`}>
             <h2 className="mb-7">Регистрация</h2>
+            {error && <Error extraClass="mb-4" data={error?.response?.data} />}
             <form className={styles.register_form} onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name="name"
@@ -50,10 +49,10 @@ const RegistrationForm = () => {
                             value: 2,
                             message: 'Минимум 2 символа',
                         },
-                        pattern: {
-                            value: /^[А-Яа-яЁё]+$/,
-                            message: 'Только кириллица',
-                        },
+                        // pattern: {
+                        //     value: /^[А-Яа-яЁё]+$/,
+                        //     message: 'Только кириллица',
+                        // },
                     }}
                     render={({ field, fieldState }) => (
                         <Input
@@ -141,7 +140,7 @@ const RegistrationForm = () => {
                 />
                 <div className={`pl-3 pr-4 mt-3 ${styles.button_container}`}>
                     <Button extraClass="mb-15" disabled={(isDirty && !isValid) || !!errors.name} type="submit" expand>
-                        Зарегистрироваться
+                        {isPending ? <DotLoader /> : 'Зарегистрироваться'}
                     </Button>
                 </div>
             </form>

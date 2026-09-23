@@ -18,7 +18,7 @@ const useModal = ({ Component }: IUseModal) => {
 
     const renderModal = isOpen ? <Modal close={closeModal}>{Component}</Modal> : null;
 
-    return { renderModal, openModal };
+    return { renderModal, openModal, closeModal };
 };
 
 export default useModal;

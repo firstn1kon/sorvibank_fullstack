@@ -3,8 +3,19 @@ import styles from './header.module.css';
 import logo from '../../assets/logo.svg';
 import LogoutIcon from '../ui/icons/LogoutIcon';
 import ProfileIcon from '../ui/icons/ProfileIcon';
+import { useLogout } from '../../api/hooks/useLogout';
+import { useFetchme } from '../../api/hooks/useFetchMe';
+import DotLoader from '../ui/loaders/DotLoader';
 
 const Header = () => {
+    const { mutate: logout } = useLogout();
+
+    const { data: user, isLoading } = useFetchme();
+
+    const handleLogout = () => {
+        logout();
+    };
+
     return (
         <header className={styles.header}>
             <div className="container">
@@ -18,12 +29,14 @@ const Header = () => {
                                 <div>
                                     <ProfileIcon fill="#FFd544" />
                                 </div>
-                                <div>Личный кабинет</div>
+                                <div>{user?.name ?? (isLoading ? <DotLoader bg={'#fff'} /> : 'Личный кабинет')}</div>
                             </div>
                         </NavLink>
-                        <i className={styles.icon}>
-                            <LogoutIcon fill="#cccccc" />
-                        </i>
+                        {user?.name ? (
+                            <i className={styles.icon} onClick={handleLogout}>
+                                <LogoutIcon fill="#cccccc" />
+                            </i>
+                        ) : null}
                     </div>
                 </div>
             </div>

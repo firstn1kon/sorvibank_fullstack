@@ -4,6 +4,11 @@
     color: rgb(19, 19, 19);
     cursor: pointer;
     transition: all 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    
 }
 
 .button:disabled {

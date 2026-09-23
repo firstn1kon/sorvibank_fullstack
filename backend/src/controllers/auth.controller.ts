@@ -3,7 +3,14 @@ import bcrypt from 'bcrypt';
 import { AuthRequest } from '../middleware/auth.middleware';
 import { AppError } from '../middleware/AppError';
 import { registerSchema, loginSchema, restoreSchema, resetPasswordSchema } from '../validation/auth.validation';
-import { createUser, findUserByEmail, findUserById, toPublicUser, updateUserPassword } from '../models/user.model';
+import {
+    createUser,
+    findUserByEmail,
+    findUserById,
+    findUserByPhone,
+    toPublicUser,
+    updateUserPassword,
+} from '../models/user.model';
 import {
     createRefreshToken,
     findActiveSessions,
@@ -46,6 +53,11 @@ export async function register(req: Request, res: Response) {
     const existing = await findUserByEmail(data.login);
     if (existing) {
         throw new AppError('Пользователь с таким email уже существует', 409);
+    }
+
+    const existingPhone = await findUserByPhone(phone);
+    if (existingPhone) {
+        throw new AppError('Пользователь с таким телефоном уже существует', 409);
     }
 
     const passwordHash = await bcrypt.hash(data.password, 10);

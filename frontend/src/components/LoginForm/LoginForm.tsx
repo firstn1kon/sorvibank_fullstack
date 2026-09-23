@@ -4,6 +4,9 @@ import Button from '../ui/button/Button';
 import styles from './loginform.module.css';
 import { useForm, Controller } from 'react-hook-form';
 import { NavLink } from 'react-router';
+import { useLogin } from '../../api/hooks/useLogin';
+import Error from '../Error/Error';
+import DotLoader from '../ui/loaders/DotLoader';
 
 interface ILoginForm {
     login: string;
@@ -14,18 +17,19 @@ const LoginFrom = () => {
     const {
         control,
         handleSubmit,
-        reset,
         formState: { isDirty, isValid, errors },
     } = useForm<ILoginForm>({ mode: 'onChange', defaultValues: { login: '', password: '' } });
 
+    const { mutate: doLogin, error, isPending } = useLogin();
+
     const onSubmit = (data: ILoginForm) => {
-        console.log(data);
-        reset();
+        doLogin(data);
     };
 
     return (
         <div className={`mt-8 ${styles.container}`}>
             <h2 className="mb-7">Вход</h2>
+            {error && <Error extraClass="mb-4" data={error?.response?.data} />}
             <form className={styles.login_form} onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name="login"
@@ -59,7 +63,7 @@ const LoginFrom = () => {
                 />
                 <div className={`pl-3 pr-4 mt-3 ${styles.button_container}`}>
                     <Button disabled={(isDirty && !isValid) || !!errors.login} type="submit" expand>
-                        Войти
+                        {isPending ? <DotLoader /> : 'Войти'}
                     </Button>
                 </div>
                 <div className={`mt-7 mb-15 ${styles.links_block}`}>

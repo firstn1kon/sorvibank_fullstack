@@ -9,12 +9,14 @@ interface IButton {
     type?: 'button' | 'reset' | 'submit';
     disabled?: boolean;
     extraClass?: string;
+    onClick?: () => void;
 }
 
 const Button: FC<IButton> = memo(
-    ({ children, size = 'medium', expand = false, type = 'button', disabled = false, extraClass = '' }) => {
+    ({ children, size = 'medium', expand = false, type = 'button', disabled = false, extraClass = '', onClick }) => {
         return (
             <button
+                onClick={onClick}
                 disabled={disabled}
                 type={type}
                 className={clsx(styles.button, {
@@ -26,7 +28,7 @@ const Button: FC<IButton> = memo(
                 {children}
             </button>
         );
-    }
+    },
 );
 
 export default Button;

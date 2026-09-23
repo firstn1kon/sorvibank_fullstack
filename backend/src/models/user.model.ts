@@ -11,6 +11,10 @@ export function findUserByEmail(email: string) {
     return prisma.user.findUnique({ where: { email } });
 }
 
+export function findUserByPhone(phone: string) {
+    return prisma.user.findUnique({ where: { phone } });
+}
+
 export function findUserById(id: string) {
     return prisma.user.findUnique({ where: { id } });
 }

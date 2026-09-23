@@ -3,7 +3,9 @@ import Input from '../ui/input/Input';
 import PasswordInput from '../ui/input/PasswordInput';
 import { Controller, useForm } from 'react-hook-form';
 import Button from '../ui/button/Button';
-import { useNavigate } from 'react-router';
+import { useReset } from '../../api/hooks/useReset';
+import Error from '../Error/Error';
+import DotLoader from '../ui/loaders/DotLoader';
 
 interface IResetForm {
     code: string;
@@ -15,23 +17,21 @@ const ResetForm = () => {
     const {
         control,
         handleSubmit,
-        reset,
         watch,
         formState: { isDirty, isValid, errors },
     } = useForm<IResetForm>({ mode: 'onChange', defaultValues: { code: '', password: '', passwordAgain: '' } });
 
     const password = watch('password');
 
-    const navigate = useNavigate();
+    const { mutate: doReset, error, isPending } = useReset();
 
     const onSubmit = (data: IResetForm) => {
-        console.log(data);
-        reset();
-        navigate('/login');
+        doReset(data);
     };
     return (
         <div className={`mt-8 ${styles.container}`}>
             <h2 className="mb-7">Установите новый пароль</h2>
+            {error && <Error extraClass="mb-4" data={error?.response?.data} />}
             <form className={styles.reset_form} onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     name="code"
@@ -55,7 +55,7 @@ const ResetForm = () => {
                         <Input
                             {...field}
                             label="Код"
-                            placeholder="код из письма"
+                            placeholder="код из email"
                             error={fieldState.error?.message}
                             type="text"
                             name="code"
@@ -93,7 +93,7 @@ const ResetForm = () => {
                 />
                 <div className={`pl-3 pr-4 mt-3 ${styles.button_container}`}>
                     <Button extraClass="mb-15" disabled={(isDirty && !isValid) || !!errors.code} type="submit" expand>
-                        Установить
+                        {isPending ? <DotLoader /> : 'Установить'}
                     </Button>
                 </div>
             </form>
