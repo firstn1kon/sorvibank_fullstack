@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 import { OnlyUnAuth } from '../Layout/ProtectedRoute';
 import { OnlyAuth } from '../Layout/ProtectedRoute';
 import ProfileMain from '../profile/ProfileMain';
+import ProfileLayout from '../Layout/profileLayout/ProfileLayout';
+import Sessions from '../profile/sessions/Sessions';
 
 function App() {
     const setAuth = useAuthStore((state) => state.setAuth);
@@ -50,7 +52,10 @@ function App() {
                     </Route>
                     // OnlyAuth routes
                     <Route element={<OnlyAuth onlyUnAuth={false} />}>
-                        <Route path="me/main" element={<ProfileMain />} />
+                        <Route path="me" element={<ProfileLayout />}>
+                            <Route path="main" element={<ProfileMain />} />
+                            <Route path="sessions" element={<Sessions />} />
+                        </Route>
                     </Route>
                 </Route>
                 // Route 404

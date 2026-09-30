@@ -19,7 +19,7 @@ function FirstScreen() {
         if (!user) {
             openModal();
         } else {
-            navigate('/account');
+            navigate('/me/main');
         }
     };
 
