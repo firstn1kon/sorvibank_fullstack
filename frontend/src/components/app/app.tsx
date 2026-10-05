@@ -12,6 +12,7 @@ import ProfileMain from '../profile/ProfileMain';
 import ProfileLayout from '../Layout/profileLayout/ProfileLayout';
 import Sessions from '../profile/sessions/Sessions';
 import ChangePassword from '../profile/change-password/ChangePassword';
+import LogoutPage from '../profile/logout-page/LogoutPage';
 
 function App() {
     const setAuth = useAuthStore((state) => state.setAuth);
@@ -57,6 +58,7 @@ function App() {
                             <Route path="main" element={<ProfileMain />} />
                             <Route path="sessions" element={<Sessions />} />
                             <Route path="change-password" element={<ChangePassword />} />
+                            <Route path="logout" element={<LogoutPage />} />
                         </Route>
                     </Route>
                 </Route>

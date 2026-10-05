@@ -8,6 +8,7 @@ import PhoneIcon from '../ui/icons/PhoneIcon';
 import LockIcon from '../ui/icons/LockIcon';
 import { formatPhoneNumber } from '../utils/formatPhoneNumber';
 import AccountIcon from '../ui/icons/AccountIcon';
+import { Link } from 'react-router';
 
 const ProfileMain = () => {
     const { data: user } = useFetchme();
@@ -64,7 +65,9 @@ const ProfileMain = () => {
                         Пароль: <span>*********</span>
                     </div>
                     <div className={styles.edit}>
-                        <PencilIcon />
+                        <Link to="/me/change-password">
+                            <PencilIcon />
+                        </Link>
                     </div>
                 </li>
             </ul>

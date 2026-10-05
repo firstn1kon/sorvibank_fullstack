@@ -9,13 +9,14 @@ export const useLogout = () => {
     return useMutation<Awaited<ReturnType<typeof logout>>, ApiError>({
         mutationFn: logout,
         onSuccess: (data) => {
+            window.location.replace('/');
             qc.setQueryData(['me'], null);
             qc.clear();
             toast.success(data.message, {
                 duration: 5000,
             });
         },
-                onError: (error) => {
+        onError: (error) => {
             toast.error(<Error data={error.response?.data} />, {
                 duration: 5000,
             });

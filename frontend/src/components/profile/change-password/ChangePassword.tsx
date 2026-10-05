@@ -59,7 +59,6 @@ const ChangePassword = () => {
                     <WarningIcon fill="#F59E0B" width="34px" height="34px" />
                 </div>
                 <div>
-                    {/* <p style={{ color: 'rgb(155, 154, 154)' }}>Надежный пароль защитит ваш аккаунт</p> */}
                     <p>После смены пароля будет осуществлен выход со всех устройств кроме текущего</p>
                 </div>
             </div>
@@ -106,6 +105,7 @@ const ChangePassword = () => {
                         />
                     )}
                 />
+
                 <div className={`pl-3 pr-4 mt-3 ${styles.button_container}`}>
                     <Button extraClass="mb-15" disabled={(isDirty && !isValid) || !!errors.passwordAgain} type="submit" expand>
                         {isPending ? <DotLoader /> : 'Сменить пароль'}

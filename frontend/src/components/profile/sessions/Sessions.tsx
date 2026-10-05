@@ -11,7 +11,7 @@ import { useDeleteSession } from '../../../api/hooks/useDeleteSession';
 import { useLogoutAll } from '../../../api/hooks/useLogoutAll';
 import { useLogout } from '../../../api/hooks/useLogout';
 
-const getDeviceIcon = (os: string | null) => {
+export const getDeviceIcon = (os: string | null | undefined) => {
     if (!os) return DevicesIcon;
     if (os.includes('windows')) return WindowsIcon;
     if (os.includes('mac') || os.includes('ios')) return AppleIcon;
@@ -24,7 +24,6 @@ const Sessions = () => {
     const { mutate: doLogoutSession } = useDeleteSession();
     const { mutate: doLogoutAll } = useLogoutAll();
     const { mutate: doLogout } = useLogout();
-    console.log(sessions);
 
     return (
         <>
@@ -53,10 +52,7 @@ const Sessions = () => {
                                     )}
                                 </div>
 
-                                <div
-                                    className={styles.edit}
-                                    onClick={() => (session.current ? doLogout() : doLogoutSession(session.id))}
-                                >
+                                <div className={styles.edit} onClick={() => (session.current ? doLogout() : doLogoutSession(session.id))}>
                                     <LogoutIcon fill={'#000'} />
                                 </div>
                             </li>
