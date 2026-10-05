@@ -36,6 +36,13 @@ export function revokeAllUserRefreshTokens(userId: string, reason: RevokeReason)
     });
 }
 
+export function revokeOtherUserRefreshTokens(userId: string, keepId: string, reason: RevokeReason) {
+    return prisma.refreshToken.updateMany({
+        where: { userId, revokedAt: null, id: { not: keepId } },
+        data: { revokedAt: new Date(), revokedReason: reason },
+    });
+}
+
 export async function findActiveSessions(
     userId: string,
     currenttokenHash: string | null,

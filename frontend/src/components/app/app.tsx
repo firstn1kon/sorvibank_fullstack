@@ -11,6 +11,7 @@ import { OnlyAuth } from '../Layout/ProtectedRoute';
 import ProfileMain from '../profile/ProfileMain';
 import ProfileLayout from '../Layout/profileLayout/ProfileLayout';
 import Sessions from '../profile/sessions/Sessions';
+import ChangePassword from '../profile/change-password/ChangePassword';
 
 function App() {
     const setAuth = useAuthStore((state) => state.setAuth);
@@ -55,6 +56,7 @@ function App() {
                         <Route path="me" element={<ProfileLayout />}>
                             <Route path="main" element={<ProfileMain />} />
                             <Route path="sessions" element={<Sessions />} />
+                            <Route path="change-password" element={<ChangePassword />} />
                         </Route>
                     </Route>
                 </Route>

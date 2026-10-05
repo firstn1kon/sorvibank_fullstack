@@ -13,13 +13,7 @@ const ProfileLayout = () => {
                 <div className={styles.nav}>
                     <ul>
                         <li>
-                            <NavLink
-                                end
-                                to="/me/main"
-                                className={({ isActive }) =>
-                                    isActive ? `${styles.navItem} ${styles.active}` : styles.navItem
-                                }
-                            >
+                            <NavLink end to="/me/main" className={({ isActive }) => (isActive ? `${styles.navItem} ${styles.active}` : styles.navItem)}>
                                 <div className={styles.navIcon}>
                                     <HomeIcon />
                                 </div>
@@ -27,13 +21,7 @@ const ProfileLayout = () => {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink
-                                end
-                                to="/me/sessions"
-                                className={({ isActive }) =>
-                                    isActive ? `${styles.navItem} ${styles.active}` : styles.navItem
-                                }
-                            >
+                            <NavLink end to="/me/sessions" className={({ isActive }) => (isActive ? `${styles.navItem} ${styles.active}` : styles.navItem)}>
                                 <div className={styles.navIcon}>
                                     <DevicesIcon />
                                 </div>
@@ -41,11 +29,17 @@ const ProfileLayout = () => {
                             </NavLink>
                         </li>
 
-                        <li className={styles.navItem}>
-                            <div className={styles.navIcon}>
-                                <LockIcon />
-                            </div>
-                            <div className={styles.navDesc}>Сменить пароль</div>
+                        <li>
+                            <NavLink
+                                end
+                                to="/me/change-password"
+                                className={({ isActive }) => (isActive ? `${styles.navItem} ${styles.active}` : styles.navItem)}
+                            >
+                                <div className={styles.navIcon}>
+                                    <LockIcon />
+                                </div>
+                                <div className={styles.navDesc}>Cменить пароль</div>
+                            </NavLink>
                         </li>
                         <li className={styles.navItem}>
                             <div className={styles.navIcon}>
