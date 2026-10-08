@@ -1,0 +1,93 @@
+{
+  "projectId": "40a5eec8-8b5c-4b4b-a038-46550d490169",
+  "shape": "package",
+  "pkg": "sorvibank-ui",
+  "globalName": "Sorvibank",
+  "buildCmd": "node .design-sync/build-pkg.mjs",
+  "entry": ".ds-pkg/src/ds-index.ts",
+  "componentSrcMap": {
+    "SorvibankProvider": null,
+    "NotFound": "src/ds-index.ts",
+    "ChangePassword": "src/ds-index.ts",
+    "PasswordInput": "src/ds-index.ts",
+    "PhoneInput": "src/ds-index.ts",
+    "DotLoader": "src/ds-index.ts",
+    "LogoutPage": "src/ds-index.ts",
+    "ProgressBarToast": "src/ds-index.ts"
+  },
+  "provider": {
+    "component": "SorvibankProvider"
+  },
+  "docsMap": {
+    "Button": "../.design-sync/groups/primitives.md",
+    "Input": "../.design-sync/groups/primitives.md",
+    "PasswordInput": "../.design-sync/groups/primitives.md",
+    "PhoneInput": "../.design-sync/groups/primitives.md",
+    "DotLoader": "../.design-sync/groups/primitives.md",
+    "Modal": "../.design-sync/groups/primitives.md",
+    "ErrorMessage": "../.design-sync/groups/primitives.md",
+    "ProgressBarToast": "../.design-sync/groups/primitives.md",
+    "Header": "../.design-sync/groups/landing.md",
+    "Footer": "../.design-sync/groups/landing.md",
+    "FirstScreen": "../.design-sync/groups/landing.md",
+    "Steps": "../.design-sync/groups/landing.md",
+    "Tiles": "../.design-sync/groups/landing.md",
+    "MapSection": "../.design-sync/groups/landing.md",
+    "Video": "../.design-sync/groups/landing.md",
+    "NotFound": "../.design-sync/groups/landing.md",
+    "LoginForm": "../.design-sync/groups/auth.md",
+    "RegistrationForm": "../.design-sync/groups/auth.md",
+    "RestoreForm": "../.design-sync/groups/auth.md",
+    "ResetForm": "../.design-sync/groups/auth.md",
+    "ProfileMain": "../.design-sync/groups/profile.md",
+    "ChangePassword": "../.design-sync/groups/profile.md",
+    "Sessions": "../.design-sync/groups/profile.md",
+    "LogoutPage": "../.design-sync/groups/profile.md"
+  },
+  "overrides": {
+    "Header": {
+      "cardMode": "column"
+    },
+    "Footer": {
+      "cardMode": "column"
+    },
+    "FirstScreen": {
+      "cardMode": "column"
+    },
+    "Steps": {
+      "cardMode": "column"
+    },
+    "Tiles": {
+      "cardMode": "column"
+    },
+    "MapSection": {
+      "cardMode": "column"
+    },
+    "Video": {
+      "cardMode": "column"
+    },
+    "NotFound": {
+      "cardMode": "column"
+    },
+    "Modal": {
+      "cardMode": "single",
+      "viewport": "720x480"
+    },
+    "Button": {
+      "cardMode": "column"
+    },
+    "ErrorMessage": {
+      "cardMode": "column"
+    },
+    "Input": {
+      "cardMode": "column"
+    },
+    "PasswordInput": {
+      "cardMode": "column"
+    },
+    "PhoneInput": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}
