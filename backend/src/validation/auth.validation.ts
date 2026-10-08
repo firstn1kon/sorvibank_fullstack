@@ -51,6 +51,10 @@ export const resetPasswordSchema = z
         path: ['passwordAgain'],
     });
 
+export const updateProfileSchema = z.object({
+    name: z.string().trim().pipe(nameField),
+});
+
 export const changePasswordSchema = z
     .object({
         currentPassword: passwordField,

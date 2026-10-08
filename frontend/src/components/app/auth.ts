@@ -30,3 +30,4 @@ export const getSessions = () => api.get<{ sessions: Session[] }>('auth/sessions
 export const deleteSession = (id: string) => api.delete<{ message: string }>(`auth/sessions/${id}`).then((response) => response.data);
 export const logoutAll = () => api.post('/auth/logout-all').then((response) => response.data);
 export const postChangePassword = (body: DataChangePassword) => api.post('/auth/change-password', body).then((response) => response.data);
+export const patchMe = (body: { name: string }) => api.patch('/auth/me', body).then((response) => response.data.user);

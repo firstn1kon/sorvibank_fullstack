@@ -31,8 +31,16 @@ const Sessions = () => {
                 <SessionsIcon width="100px" height="100px" />
                 <span className={styles.name}>Устройства</span>
             </div>
-            <span style={{ display: 'flex', justifyContent: 'center', marginBottom: '4px', color: ' #9b9a9a' }}>
-                Ваши устройства, на которых вы вошли в аккаунт
+            <span
+                style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    marginBottom: '4px',
+                    color: ' #9b9a9a',
+                    fontSize: 'var(--small-size-text)',
+                }}
+            >
+                Ваши устройства, на которых вы вошли в аккаунт:
             </span>
             <ul className={styles.profile}>
                 {sessions &&
@@ -46,7 +54,7 @@ const Sessions = () => {
                                 <div className={styles.desc}>
                                     {session?.deviceInfo} <br></br>IP: {session?.ipAddress}
                                     {session.current && (
-                                        <span style={{ fontWeight: '400', display: 'flex' }}>
+                                        <span style={{ fontWeight: '400', display: 'flex', paddingLeft: '0px' }}>
                                             <AcceptIcon fill={'#1380c5'} width="18px" /> Текущий сеанс
                                         </span>
                                     )}

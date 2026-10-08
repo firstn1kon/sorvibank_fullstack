@@ -72,5 +72,6 @@ a:hover {
     }
     :root {
         --main-size-text: 15px;
+        --small-size-text: 14px;
     }
 }

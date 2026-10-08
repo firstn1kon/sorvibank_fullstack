@@ -3,8 +3,23 @@ import bcrypt from 'bcrypt';
 import { RevokeReason } from '@prisma/client';
 import { AuthRequest } from '../middleware/auth.middleware';
 import { AppError } from '../middleware/AppError';
-import { registerSchema, loginSchema, restoreSchema, resetPasswordSchema, changePasswordSchema } from '../validation/auth.validation';
-import { createUser, findUserByEmail, findUserById, findUserByPhone, toPublicUser, updateUserPassword } from '../models/user.model';
+import {
+    registerSchema,
+    loginSchema,
+    restoreSchema,
+    resetPasswordSchema,
+    changePasswordSchema,
+    updateProfileSchema,
+} from '../validation/auth.validation';
+import {
+    createUser,
+    findUserByEmail,
+    findUserById,
+    findUserByPhone,
+    toPublicUser,
+    updateUserName,
+    updateUserPassword,
+} from '../models/user.model';
 import {
     createRefreshToken,
     findActiveSessions,
@@ -224,6 +239,22 @@ export async function me(req: AuthRequest, res: Response) {
     }
 
     res.json({ user: toPublicUser(user) });
+}
+
+export async function updateMe(req: AuthRequest, res: Response) {
+    if (!req.user) {
+        throw new AppError('Не авторизован', 401);
+    }
+    const data = updateProfileSchema.parse(req.body);
+
+    const user = await findUserById(req.user.id);
+    if (!user) {
+        throw new AppError('Пользователь не найден', 404);
+    }
+
+    const updated = await updateUserName(user.id, data.name);
+
+    res.json({ user: toPublicUser(updated) });
 }
 
 export async function restore(req: Request, res: Response) {

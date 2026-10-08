@@ -27,6 +27,10 @@ export function updateUserPassword(userId: string, passwordHash: string) {
     return prisma.user.update({ where: { id: userId }, data: { passwordHash } });
 }
 
+export function updateUserName(userId: string, name: string) {
+    return prisma.user.update({ where: { id: userId }, data: { name } });
+}
+
 export function toPublicUser(user: {
     id: string;
     name: string | null;

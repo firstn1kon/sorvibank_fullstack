@@ -28,16 +28,16 @@ const LogoutPage = () => {
                                 width: '100%',
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center',
+                                // justifyContent: 'center',
                                 marginBottom: '4px',
                                 color: ' #9b9a9a',
-                                textAlign: 'center',
+                                // textAlign: 'center',
                             }}
                         >
                             <div className={styles.icon}>
                                 <WarningIcon fill="#F59E0B" />
                             </div>
-                            <span>Будет завершен текущий сеанс на устройстве</span>
+                            <span style={{ fontSize: '15px' }}>Будет завершен текущий сеанс на устройстве</span>
                         </div>
                     </li>
                     <li className={styles.profileItem}>

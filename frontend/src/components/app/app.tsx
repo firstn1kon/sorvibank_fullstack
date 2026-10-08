@@ -35,11 +35,12 @@ function App() {
                 expand
                 closeButton
                 visibleToasts={5}
-                toastOptions={{
-                    style: {
-                        marginTop: '100px',
-                    },
-                }}
+                offset={{ top: '120px' }}
+                // toastOptions={{
+                //     style: {
+                //         marginTop: '100px',
+                //     },
+                // }}
             />
             <Routes location={location}>
                 <Route element={<MainLayout />}>
