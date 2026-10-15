@@ -24,6 +24,16 @@
 
 }
 
+.link {
+
+    color: #126df7;
+    transition: color .2s;
+
+}
+.link:hover {
+    color: #0f54bb
+}
+
 .desc {
     color: #666666
 }

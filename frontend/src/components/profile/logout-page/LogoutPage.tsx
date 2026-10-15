@@ -1,12 +1,8 @@
-import LogoutPageIcon from '../../ui/icons/LogoutPageIcon';
 import styles from '../profileMain.module.css';
 import { useSseions } from '../../../api/hooks/useSessions';
 import { getDeviceIcon } from '../sessions/Sessions';
-import AcceptIcon from '../../ui/icons/AcceptIcon';
-import WarningIcon from '../../ui/icons/WarningIcon';
-import Button from '../../ui/button/Button';
 import { useLogout } from '../../../api/hooks/useLogout';
-import DotLoader from '../../ui/loaders/DotLoader';
+import LogoutIcon from '../../ui/icons/LogoutIcon';
 
 const LogoutPage = () => {
     const { data: sessions } = useSseions();
@@ -17,46 +13,27 @@ const LogoutPage = () => {
     return (
         <>
             <div className={styles.summary}>
-                <LogoutPageIcon width="100px" height="100px" />
-                <span className={styles.name}>Выйти</span>
+                <span className={styles.name}>Выход</span>
+                <span className={styles.hint}>Будет завершен текущий сеанс на устройстве:</span>
             </div>
-            {currentSession && (
-                <ul className={styles.profile}>
-                    <li className={styles.profileItem}>
-                        <div
-                            style={{
-                                width: '100%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                // justifyContent: 'center',
-                                marginBottom: '4px',
-                                color: ' #9b9a9a',
-                                // textAlign: 'center',
-                            }}
-                        >
-                            <div className={styles.icon}>
-                                <WarningIcon fill="#F59E0B" />
-                            </div>
-                            <span style={{ fontSize: '15px' }}>Будет завершен текущий сеанс на устройстве</span>
-                        </div>
-                    </li>
-                    <li className={styles.profileItem}>
+
+            <ul className={styles.profile}>
+                {currentSession && (
+                    <li key={currentSession.id} className={`${styles.profileItem}`}>
                         <div className={styles.icon}>
-                            <IconDevice />
+                            <IconDevice fill="#131313" />
                         </div>
                         <div className={styles.desc}>
-                            {currentSession?.deviceInfo} - IP: {currentSession?.ipAddress}
-                        </div>
-
-                        <div style={{ flexShrink: '0' }}>
-                            <AcceptIcon fill={'#1380c5'} width="18px" />
+                            <div className={styles.title}>{currentSession?.deviceInfo}</div>
+                            <span className={styles.meta}>IP {currentSession?.ipAddress}</span>
                         </div>
                     </li>
-                </ul>
-            )}
-            <div className={`mt-4 ${styles.profile}`}>
-                <Button onClick={doLogout}>{isPending ? <DotLoader /> : 'ВЫЙТИ'}</Button>
-            </div>
+                )}
+                <li className={`${styles.profileItem} ${styles.danger}`} role="button" onClick={() => doLogout()}>
+                    <LogoutIcon fill="#e22121" />
+                    Выйти
+                </li>
+            </ul>
         </>
     );
 };

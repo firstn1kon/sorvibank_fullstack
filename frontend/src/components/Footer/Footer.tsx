@@ -1,35 +1,32 @@
-import styles from "./footer.module.css"
-import logo from "../../assets/logoinvert.svg"
-import youtube from "../../assets/icon-yt.svg"
-import telegram from "../../assets/icon-telegram.svg"
+import styles from './footer.module.css';
+import logo from '../../assets/logoinvert.svg';
+import youtube from '../../assets/icon-yt.svg';
+import telegram from '../../assets/icon-telegram.svg';
 
+const year = new Date().getFullYear();
 
-const date = new Date()
-const year = date.getFullYear()
+const NETWORKS = [
+    { name: 'YouTube', href: '#', icon: youtube },
+    { name: 'Telegram', href: '#', icon: telegram },
+];
 
-const Footer = () => {
-
-
-    return (
+const Footer = () => (
+    <div>
         <footer className={styles.footer}>
-            <div className="container">
-                <div className={styles.wrapper}>
-                    <img className={styles.logo} src={logo} alt="logo" />
-                    <div className={styles.copyright}>Сорвибанк 2024 - {year}</div>
-                    <div className={styles.social}>
-                        <a href ="#" className={styles.network}>
-                            <img src={youtube} alt="youtube" />
+            <div className={`container ${styles.wrapper}`}>
+                <img className={styles.logo} src={logo} alt="Сорвибанк" />
+                <div className={styles.copyright}>Сорвибанк 2024 - {year}</div>
+                <div className={styles.social}>
+                    {NETWORKS.map((n) => (
+                        <a key={n.name} href={n.href} className={styles.network} target="_blank" rel="noreferrer">
+                            <img src={n.icon} alt="" aria-hidden="true" />
+                            <span>{n.name}</span>
                         </a>
-                        <a href ="#" className={styles.network}>
-                            <img src={telegram} alt="telegram" />
-                        </a>
-                    </div>
+                    ))}
                 </div>
             </div>
-
-
         </footer>
-    )
-}
+    </div>
+);
 
-export default Footer
+export default Footer;

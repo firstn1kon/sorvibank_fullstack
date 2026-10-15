@@ -26,7 +26,7 @@ export interface IMyInput extends React.HTMLProps<HTMLInputElement> {
 }
 
 const Input: FC<IMyInput> = ({
-    bg = 'rgb(255, 255, 255)',
+    bg = 'rgb(249, 249, 249)',
     label,
     placeholder,
     error,
@@ -54,7 +54,7 @@ const Input: FC<IMyInput> = ({
                 inputRef?.current?.focus();
             }
         },
-        [onIconClick]
+        [onIconClick],
     );
 
     const iconRender = useMemo(() => {

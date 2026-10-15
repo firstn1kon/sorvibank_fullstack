@@ -24,11 +24,12 @@ symlinkSync(join(FRONT, 'node_modules'), join(OUT, 'node_modules'), 'dir');
 
 // The converter's esbuild inlines .png/.svg as data URLs (and has no .jpg loader),
 // so raster assets end up inside _ds_bundle.js. Downscale the copies (macOS sips)
-// to keep the bundle small, and inline the one CSS .jpg background as a data URL.
+// to keep the bundle small, and inline the CSS .jpg backgrounds as data URLs.
 const ASSETS = join(OUT, 'src/assets');
 const sips = (file, max) => execFileSync('sips', ['-Z', String(max), file], { stdio: 'ignore' });
 for (const f of ['tile-01.png', 'tile-02.png', 'tile-03.png', 'tile-04.png', 'tile-05.png', 'iphone.png']) sips(join(ASSETS, f), 500);
 sips(join(ASSETS, 'bg_main.jpg'), 1600);
+sips(join(ASSETS, 'city-map.jpg'), 1600);
 // video_preview is a photo stored as PNG (~2MB) - re-encode as JPEG for the bundle copy.
 execFileSync('sips', ['-Z', '1200', '-s', 'format', 'jpeg', '-s', 'formatOptions', '75', join(ASSETS, 'video_preview.png'), '--out', join(ASSETS, 'video_preview.jpg')], { stdio: 'ignore' });
 const inlineJpeg = (cssRel, urlExpr, asset) => {
@@ -38,7 +39,17 @@ const inlineJpeg = (cssRel, urlExpr, asset) => {
   if (!src.includes(urlExpr)) { console.error(`build-pkg: ${urlExpr} not found in ${cssRel} - update build-pkg.mjs`); process.exit(1); }
   writeFileSync(css, src.replace(urlExpr, `url('data:image/jpeg;base64,${b64}')`));
 };
-inlineJpeg('FirstScreen/firstScreen.module.css', "url('../../assets/bg_main.jpg')", 'bg_main.jpg');
+// FirstScreen (redesign): city-map.jpg background plus an image-set() of .webp variants.
+// esbuild has no .webp loader either, so drop the image-set line in the bundle copy and
+// keep the JPEG fallback (inlined). The old bg_main.jpg line is now commented out.
+{
+  const css = join(OUT, 'src/components/FirstScreen/firstScreen.module.css');
+  const src = readFileSync(css, 'utf8');
+  const out = src.replace(/^\s*background-image:\s*image-set\(.*\);\s*$/m, '');
+  if (out === src) { console.error('build-pkg: FirstScreen image-set() line not found - update build-pkg.mjs'); process.exit(1); }
+  writeFileSync(css, out.replace(/\/\*[^*]*bg_main\.jpg[^*]*\*\//, ''));
+}
+inlineJpeg('FirstScreen/firstScreen.module.css', 'url(../../assets/city-map.jpg)', 'city-map.jpg');
 inlineJpeg('Video/video.module.css', 'url("../../assets/video_preview.png")', 'video_preview.jpg');
 
 writeFileSync(

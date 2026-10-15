@@ -1,40 +1,25 @@
-.map {
-    position: relative;
-    height: 100%;
-    width: 100%;
-    padding-top: 50px;
-    padding-bottom: 10px;
-    background-image: url('../../assets/map-bg.svg');
+
+.section {
+  background: #f9f9f9;
+  overflow: hidden;
+  padding: 56px 24px 64px;
+      background-image: url('../../assets/map-bg.svg');
     background-position: center 0;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: #f9f9f9;
-
 }
+
+
 .title {
-    text-align: center;
+    text-align: center; 
 }
 
 .title h2 {
-    position: relative;
-    display: inline;
-    margin: 0 auto;
-    font-size: var(--title-section-font-size);
-    font-weight: bold;
-}
-
-
-.title h2::after {
-    content: "";
-    position: absolute;
-    display: block;
-    background: #ffd544;
-    width: 100%;
-    height: 4px;
-    margin: 0 auto;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
+  position: relative;
+  display: inline;
+  margin: 0 auto;
+  font-size: var(--title-section-font-size);
+  font-weight: bold;
 }
 
 .title h3 {
@@ -42,111 +27,261 @@
     font-size: var(--large--size-text);
 }
 
-.desc {
-    margin-top: 100px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+.title h2::after {
+  content: "";
+  position: absolute;
+  display: block;
+  background: #ffd544;
+  width: 100%;
+  height: 4px;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
+
+.title p {
+  margin: 0;
+  font-size: var(--main-size-text);
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+
+.body {
+  display: grid;
+  grid-template-columns: 400px minmax(0, 1fr);
+  gap: 40px;
+  align-items: center;
+  max-width: 1040px;
+  margin: 48px auto 0;
 }
 
 .phone {
-   align-self: center;
+  position: relative;
+  justify-self: center;
+  width: 280px;
+}
 
+.phone img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.coin {
+  position: absolute;
+  top: 150px;
+  right: -70px;
+  width: 132px;
+  height: 132px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #ffe78a, #ffd544 45%, #f1ce4f);
+  box-shadow: 0 10px 0 #c9a21c, 0 24px 30px rgba(0, 0, 0, 0.25);
+}
+
+.coin span {
+  width: 79%;
+  height: 79%;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  border: 3px solid #c9a21c;
+  border-radius: 50%;
+  font-size: 40px;
+  font-weight: 900;
+  line-height: 1;
+  color: #a8820f;
+}
+
+.text {
+  min-width: 0;
+  padding-left: 40px;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--large--size-text);
+  font-weight: 500;
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.key {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--large--size-text);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.key i {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #ffd544;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+}
+
+.card_text {
+  font-size: var(--small-size-text);
+  line-height: 1.45;
+  color: #292929;
+  text-wrap: pretty;
 }
 
 
-
-.header {
-    display: block;
-    margin-top: 80px;
-    font-size: var(--large--size-text);
+.plaque {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1040px;
+  margin: 40px auto 0;
+  padding: 22px 28px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  background: #f5f3f3;
+  border: 2px solid #eeeded;
 }
 
-.post_description {
-    font-size: var(--large--size-text);
-    display: block;
+.final {
+  font-size: var(--main-size-text);
+  font-weight: 700;
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+
+.button_dark {
+  flex: none;
+  border-radius: 12px;
+  font-size: var(--main-size-text);
+}
+
+
+@media (max-width: 1023px) {
+  .body {
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .phone {
+    width: 240px;
+  }
+
+  .coin {
+    top: 120px;
+    right: -52px;
+    width: 104px;
+    height: 104px;
+  }
+
+  .coin span {
+    font-size: 32px;
+  }
+
+  .text {
+    padding-left: 24px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 743px) {
+  .section {
+    padding: 40px 16px 48px;
+  }
+
+  .body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    margin-top: 32px;
+  }
+
+  .phone {
+    width: 200px;
+    margin-right: 40px;
+  }
+
+  .coin {
+    top: 96px;
+    right: -60px;
+    width: 88px;
+    height: 88px;
+  }
+
+  .coin span {
+    border-width: 2px;
+    font-size: 26px;
+  }
+
+  .text {
+    padding-left: 0;
+  }
+
+  .lead {
     text-align: center;
-    margin-top: 40px;
-}
+  }
 
-.mobile {
-    display: none;
-}
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+  }
 
+  .card {
+    gap: 6px;
+    padding: 14px 16px;
+  }
 
+  .key i {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
 
-.map_items {
-    margin-top: 70px;
-    display: flex;
-    flex-wrap: wrap;
-}
+  .plaque {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 28px;
+    padding: 20px;
+    border-radius: 16px;
+    text-align: center;
+  }
 
-.map_item  {
-    display: flex;
-    width: 50%;
-    gap: 20px;
-    align-items: start;
-    margin-bottom: 60px;
-    padding: 5px;
-
-}
-.map_item img  {
-    object-fit: contain;
-
-}
-
-.map_item span  {
-    font-size: var(--main-size-text);
-    margin-top: 0;
-    font-weight:200;
-}
-
-
-@media (max-width: 992px) {
-    .desc {
-        margin-top: 40px;
-    }
-    .map_item  {
-        width: 100%;
-        font-size: 220px;
-    }
-
-    .map_item span  {
-        font-size: 18px;
-    }
-
-    .mobile {
-        display: block;
-    }
-
-    .desktop {
-        display: none;
-    }
-
-    .post_description {
-        margin-top: 0;
-    }
-    
-
-}
-
-@media (max-width: 576px) {
-    .desc {
-        grid-template-columns: 1fr;
-        justify-items: center;
-    }
-    .header {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .desc {
-        margin-top: 20px;
-
-    }
-
-    .phone {
-        max-width: 300px;
-    }
-    
+  .button_dark {
+    width: 100%;
+  }
 }

@@ -5,8 +5,6 @@ import AppleIcon from '../../ui/icons/AppleIcon';
 import AndroidIcon from '../../ui/icons/AndroidIcon';
 import { useSseions } from '../../../api/hooks/useSessions';
 import LogoutIcon from '../../ui/icons/LogoutIcon';
-import SessionsIcon from '../../ui/icons/SessionsIcon';
-import AcceptIcon from '../../ui/icons/AcceptIcon';
 import { useDeleteSession } from '../../../api/hooks/useDeleteSession';
 import { useLogoutAll } from '../../../api/hooks/useLogoutAll';
 import { useLogout } from '../../../api/hooks/useLogout';
@@ -19,6 +17,14 @@ export const getDeviceIcon = (os: string | null | undefined) => {
     return DevicesIcon;
 };
 
+const formatDate = (iso: string) =>
+    new Intl.DateTimeFormat('ru-RU', {
+        day: 'numeric',
+        month: 'long',
+        hour: '2-digit',
+        minute: '2-digit',
+    }).format(new Date(iso));
+
 const Sessions = () => {
     const { data: sessions } = useSseions();
     const { mutate: doLogoutSession } = useDeleteSession();
@@ -28,55 +34,42 @@ const Sessions = () => {
     return (
         <>
             <div className={styles.summary}>
-                <SessionsIcon width="100px" height="100px" />
                 <span className={styles.name}>Устройства</span>
+                <span className={styles.hint}>Где выполнен вход в аккаунт</span>
             </div>
-            <span
-                style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    marginBottom: '4px',
-                    color: ' #9b9a9a',
-                    fontSize: 'var(--small-size-text)',
-                }}
-            >
-                Ваши устройства, на которых вы вошли в аккаунт:
-            </span>
             <ul className={styles.profile}>
                 {sessions &&
                     sessions.map((session) => {
                         const IconDevice = getDeviceIcon(session.os);
                         return (
-                            <li className={styles.profileItem} key={session.id}>
+                            <li key={session.id} className={`${styles.profileItem} ${session.current ? styles.active : ''}`}>
                                 <div className={styles.icon}>
-                                    <IconDevice />
+                                    <IconDevice fill="#131313" />
                                 </div>
                                 <div className={styles.desc}>
-                                    {session?.deviceInfo} <br></br>IP: {session?.ipAddress}
-                                    {session.current && (
-                                        <span style={{ fontWeight: '400', display: 'flex', paddingLeft: '0px' }}>
-                                            <AcceptIcon fill={'#1380c5'} width="18px" /> Текущий сеанс
-                                        </span>
-                                    )}
+                                    <div className={styles.title}>
+                                        {session?.deviceInfo}
+                                        {session.current && <span className={styles.current}>Это устройство</span>}
+                                    </div>
+                                    <span className={styles.meta}>
+                                        IP {session?.ipAddress} · вход {formatDate(session.createdAt)}
+                                    </span>
                                 </div>
-
-                                <div className={styles.edit} onClick={() => (session.current ? doLogout() : doLogoutSession(session.id))}>
-                                    <LogoutIcon fill={'#000'} />
+                                <div
+                                    className={styles.edit}
+                                    role="button"
+                                    aria-label="Выйти"
+                                    title="Выйти"
+                                    onClick={() => (session.current ? doLogout() : doLogoutSession(session.id))}
+                                >
+                                    <LogoutIcon fill="#131313" />
                                 </div>
                             </li>
                         );
                     })}
-                <li className={styles.profileItem}>
-                    <div className={styles.icon}>
-                        <DevicesIcon fill={'#e22121'} />
-                    </div>
-                    <div className={styles.desc}>
-                        <span style={{ color: '#e22121', fontWeight: '500' }}>Выйти со всех устройств</span>
-                    </div>
-
-                    <div className={styles.edit} onClick={() => doLogoutAll()}>
-                        <LogoutIcon fill={'#e22121'} />
-                    </div>
+                <li className={`${styles.profileItem} ${styles.danger}`} role="button" onClick={() => doLogoutAll()}>
+                    <LogoutIcon fill="#e22121" />
+                    Выйти со всех устройств
                 </li>
             </ul>
         </>

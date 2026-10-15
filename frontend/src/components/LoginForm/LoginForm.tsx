@@ -7,6 +7,7 @@ import { NavLink } from 'react-router';
 import { useLogin } from '../../api/hooks/useLogin';
 import Error from '../Error/Error';
 import DotLoader from '../ui/loaders/DotLoader';
+import { useLocation } from 'react-router';
 
 interface ILoginForm {
     login: string;
@@ -14,6 +15,7 @@ interface ILoginForm {
 }
 
 const LoginFrom = () => {
+    const { pathname } = useLocation();
     const {
         control,
         handleSubmit,
@@ -49,6 +51,7 @@ const LoginFrom = () => {
                             error={fieldState.error?.message}
                             type="text"
                             name="login"
+                            bg={pathname === '/' ? 'rgb(255, 255, 255)' : 'rgb(249, 249, 249)'}
                         />
                     )}
                 />
@@ -59,7 +62,9 @@ const LoginFrom = () => {
                         required: 'обязательное поле',
                         minLength: { value: 8, message: 'минимум 8 символов' },
                     }}
-                    render={({ field, fieldState }) => <PasswordInput {...field} error={fieldState.error?.message} />}
+                    render={({ field, fieldState }) => (
+                        <PasswordInput {...field} bg={pathname === '/' ? 'rgb(255, 255, 255)' : 'rgb(249, 249, 249)'} error={fieldState.error?.message} />
+                    )}
                 />
                 <div className={`pl-3 pr-4 mt-3 ${styles.button_container}`}>
                     <Button disabled={(isDirty && !isValid) || !!errors.login} type="submit" expand>

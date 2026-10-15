@@ -1,38 +1,93 @@
 .footer {
-    min-height: 100px;
-    width: 100%;
-    background-color: #f6f7f8;
-    position: relative;
-    padding: 10px 10px;
-    box-shadow: 1px 20px 15px 10px rgba(0,0,0,0.75);
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 36px 24px 32px;
+  background-color: #f9f9f9;
+  border-radius: 28px 28px 0 0;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
 }
 
-.social {
-    display: flex;
-    gap: 10px;
-}
-
-.network {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 60px;
-    height: 60px;
-    background: #ffd544;
-    border-radius: 50%;
-}
-
-.network:hover {
-    background: #ffc800;
+.logo {
+  display: block;
+  width: 150px;
+  height: auto;
 }
 
 .copyright {
-    font-size: var(--main-size-text);
+  font-size: var(--main-size-text);
+  color: #555;
+}
+
+.social {
+  display: flex;
+  justify-self: end;
+  gap: 10px;
+}
+
+.network {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 18px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 2px solid #000;
+  border-radius: 12px;
+  color: #000;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.network:hover {
+  background: #ffd544;
+}
+
+.network img {
+  flex: none;
+  width: 20px;
+  height: 20px;
+}
+
+/* ниже iPad mini */
+@media (max-width: 743px) {
+  .footer {
+    padding: 28px 16px 24px;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .wrapper {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .logo {
+    width: 130px;
+  }
+
+  .social {
+    justify-self: stretch;
+  }
+
+  .network {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .copyright {
+    grid-row: 3;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+    font-size: 14px;
+  }
 }

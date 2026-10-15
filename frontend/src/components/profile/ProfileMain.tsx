@@ -7,12 +7,13 @@ import EmailIcon from '../ui/icons/EmailIcon';
 import PhoneIcon from '../ui/icons/PhoneIcon';
 import LockIcon from '../ui/icons/LockIcon';
 import { formatPhoneNumber } from '../utils/formatPhoneNumber';
-import AccountIcon from '../ui/icons/AccountIcon';
 import { Link } from 'react-router';
 import { useState } from 'react';
 import AcceptIcon from '../ui/icons/AcceptIcon';
 import { useUpdateMe } from '../../api/hooks/useUpdateMe';
 import { toast } from 'sonner';
+import clsx from 'clsx';
+import CancelIcon from '../ui/icons/CancelIcon';
 
 const ProfileMain = () => {
     const { data: user } = useFetchme();
@@ -42,8 +43,8 @@ const ProfileMain = () => {
     return (
         <>
             <div className={styles.summary}>
-                <AccountIcon width="100px" height="100px" />
                 <span className={styles.name}>{user?.name}</span>
+                <span className={styles.hint}>Данные вашего профиля</span>
             </div>
             <ul className={styles.profile}>
                 <li className={styles.profileItem}>
@@ -51,29 +52,29 @@ const ProfileMain = () => {
                         <CalendarIcon />
                     </div>
                     <div className={styles.desc}>
-                        Создан:<span>{new Date(user.createdAt).toLocaleDateString('ru-RU')}</span>
+                        <span className={styles.meta}>Создан</span>
+                        <div className={styles.title}>{new Date(user.createdAt).toLocaleDateString('ru-RU')}</div>
                     </div>
-                    <div className={styles.edit}></div>
                 </li>
                 <li className={styles.profileItem}>
                     <div className={styles.icon}>
                         <CardIcon />
                     </div>
                     <div className={styles.desc}>
-                        Имя:
+                        <span className={styles.meta}>Имя</span>
                         {isEdit ? (
-                            <div className={styles.editItem}>
-                                <input autoFocus className={styles.inputName} onChange={handleChangeName} value={name} />{' '}
-                                <span onClick={patchUserName} style={{ cursor: 'pointer' }}>
-                                    <AcceptIcon fill={'#54a96e'} />
+                            <div className={`${styles.title} ${styles.editItem}`}>
+                                <input autoFocus className={styles.inputName} onChange={handleChangeName} value={name} />
+                                <span className={styles.accept} onClick={patchUserName}>
+                                    <AcceptIcon fill={'#54a96e'} width="20px" height="20px" />
                                 </span>
                             </div>
                         ) : (
-                            <span>{user.name}</span>
+                            <div className={styles.title}>{user.name}</div>
                         )}
                     </div>
-                    <div className={styles.edit} onClick={handleEdit}>
-                        <PencilIcon fill={isEdit ? '#F59E0B' : '#000000'} />
+                    <div className={clsx(styles.edit, { [styles.active_edit]: isEdit })} onClick={handleEdit}>
+                        {isEdit ? <CancelIcon /> : <PencilIcon />}
                     </div>
                 </li>
                 <li className={styles.profileItem}>
@@ -81,25 +82,26 @@ const ProfileMain = () => {
                         <EmailIcon />
                     </div>
                     <div className={styles.desc}>
-                        Email:<span>{user.email}</span>
+                        <span className={styles.meta}>Email</span>
+                        <div className={styles.title}>{user.email}</div>
                     </div>
-                    <div className={styles.edit}></div>
                 </li>
                 <li className={styles.profileItem}>
                     <div className={styles.icon}>
                         <PhoneIcon />
                     </div>
                     <div className={styles.desc}>
-                        Телефон:<span>{formatPhoneNumber(user.phone)}</span>
+                        <span className={styles.meta}>Телефон</span>
+                        <div className={styles.title}>{formatPhoneNumber(user.phone)}</div>
                     </div>
-                    <div className={styles.edit}></div>
                 </li>
                 <li className={styles.profileItem}>
                     <div className={styles.icon}>
                         <LockIcon />
                     </div>
                     <div className={styles.desc}>
-                        Пароль:<span>*********</span>
+                        <span className={styles.meta}>Пароль</span>
+                        <div className={styles.title}>*********</div>
                     </div>
                     <div className={styles.edit}>
                         <Link to="/me/change-password">

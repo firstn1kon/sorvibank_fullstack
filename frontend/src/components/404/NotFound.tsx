@@ -9,7 +9,10 @@ const NotFound = () => {
             <span className={`mt-8 ${styles.header}`}>404 - Такой сраницы нет</span>
             <span className={styles.desc}>Но есть много чего интересного</span>
             <span className={styles.header}>
-                Начни свой путь с <NavLink to="/">ГЛАВНОЙ СТРАНИЦЫ</NavLink>
+                Начни свой путь с{' '}
+                <NavLink to="/" className={styles.link}>
+                    ГЛАВНОЙ СТРАНИЦЫ
+                </NavLink>
             </span>
         </div>
     );

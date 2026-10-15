@@ -6,38 +6,43 @@ import ProfileIcon from '../ui/icons/ProfileIcon';
 import { useLogout } from '../../api/hooks/useLogout';
 import { useFetchme } from '../../api/hooks/useFetchMe';
 import DotLoader from '../ui/loaders/DotLoader';
+import MenuIcon from '../ui/icons/MenuIcon';
 
 const Header = () => {
     const { mutate: logout } = useLogout();
-
     const { data: user, isLoading } = useFetchme();
-
-    const handleLogout = () => {
-        logout();
-    };
 
     return (
         <header className={styles.header}>
-            <div className="container">
-                <div className={styles.wrapper}>
-                    <NavLink to="/">
-                        <img className={styles.logo} src={logo} alt="logo" />
-                    </NavLink>
-                    <div className={styles.account}>
-                        <NavLink to="/account" className={styles.name}>
-                            <div className={styles.profile}>
-                                <div>
-                                    <ProfileIcon fill="#FFd544" />
-                                </div>
-                                <div>{user?.name ?? (isLoading ? <DotLoader bg={'#fff'} /> : 'Личный кабинет')}</div>
-                            </div>
+            <div className={`container ${styles.wrapper}`}>
+                <NavLink to="/" className={styles.logoLink}>
+                    <img className={styles.logo} src={logo} alt="Сорвибанк" />
+                </NavLink>
+
+                <div className={styles.account}>
+                    <button type="button" className={`${styles.round} ${styles.menu}`} title="Меню" aria-label="Меню">
+                        <MenuIcon />
+                    </button>
+
+                    {user?.name ? (
+                        <>
+                            <NavLink to="/me/main" className={styles.profile}>
+                                <span className={styles.avatar}>{user.name.charAt(0).toUpperCase()}</span>
+                                <span className={styles.name}>{user.name}</span>
+                            </NavLink>
+                            <button type="button" className={styles.round} onClick={() => logout()} title="Выйти" aria-label="Выйти">
+                                <LogoutIcon fill="#ffd544" />
+                            </button>
+                        </>
+                    ) : isLoading ? (
+                        <DotLoader bg="#fff" />
+                    ) : (
+                        <NavLink to="/login" className={styles.login}>
+                            <ProfileIcon fill="#131313" />
+                            <span className={styles.loginFull}>Личный кабинет</span>
+                            <span className={styles.loginShort}>Войти</span>
                         </NavLink>
-                        {user?.name ? (
-                            <i className={styles.icon} onClick={handleLogout}>
-                                <LogoutIcon fill="#cccccc" />
-                            </i>
-                        ) : null}
-                    </div>
+                    )}
                 </div>
             </div>
         </header>

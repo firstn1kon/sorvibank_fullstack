@@ -1,10 +1,9 @@
 .input_container {
     position: relative;
-    padding: 12px;
-    border-radius: 5px;
+    padding: 12px 12px 4px 12px;
+    border-radius: 15px;
     margin-top: 0px;
     border-radius: 25px;
-
 }
 
 .input_status_disabled {
@@ -16,12 +15,17 @@
     position: relative;
     width: 100%;
     padding: 0px 35px 0px 14px;
-    height: 64px;
-    border-radius: 25px;
-    font-size: max(16px, var(--main-size-text));
-    box-shadow: 0px 0px 0px 2px rgb(0, 0, 0);
+    height: 56px;
+    border-radius: 15px;
+    font-size: 16px;
+    box-shadow: inset 0 0 0 1.5px #414141;
     z-index: 10;
     transition: all .3s;
+}
+
+.input::placeholder {
+    color: #9a9a9a;
+    font-size: 16px;
 }
 
 .input:disabled {
@@ -30,8 +34,9 @@
 }
 
 input:focus {
-    box-shadow: 0px 0px 0px 3px rgb(54, 84, 183);
+    box-shadow: inset 0 0 0 1.5px rgb(54, 84, 183), 0 0 0 4px rgba(54, 84, 183,.35);
 }
+
 
 .label {
     content: "";
@@ -42,8 +47,12 @@ input:focus {
     left: 25px;
     font-size: var(--small-size-text);
     background: inherit;
+    border-radius: 15px;
     z-index: 11;
+    color: #636363;
 }
+
+
 
 .error {
     visibility: hidden;
@@ -56,19 +65,21 @@ input:focus {
     align-items: center;
     transition: opacity .3s;
     opacity: 0;
+    margin-bottom: 5px;
 }
 
 .error_active {
     visibility: visible;
     opacity: 1;
+
 }
 
 .error_value {
-    box-shadow: 0px 0px 0px 3px rgb(196, 16, 16)
+    box-shadow: inset 0 0 0 1.5px #e22121;
 }
 
 .error_value:focus {
-    box-shadow: 0px 0px 0px 3px rgb(196, 16, 16)
+     box-shadow: inset 0 0 0 1.5px rgb(196, 16, 16), 0 0 0 4px rgba(196, 16, 16,.35);
 
 }
 

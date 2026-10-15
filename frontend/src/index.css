@@ -14,6 +14,12 @@
     font-weight: normal;
 }
 
+body {
+   background: #f9f9f9;
+}
+
+
+
 .layout {
     display: flex;
     flex-direction: column;
@@ -30,15 +36,6 @@
     position: relative;
     z-index: 1;
     padding: 5px;
-}
-
-a {
-    color: #126df7;
-    transition: color .2s;
-}
-
-a:hover {
-    color: #0f54bb
 }
 
 @media (max-width: 1200px) {

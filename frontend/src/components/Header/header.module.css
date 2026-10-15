@@ -1,95 +1,184 @@
 .header {
-    width: 100%;
-    background: #292929;
-    box-shadow: 1px -13px 15px 10px rgba(0,0,0,0.75);
-
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 20px;
+  background: #292929;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .wrapper {
-    background: #292929;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 90px;
-    gap: 10px
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 76px;
+}
 
+.logoLink {
+  display: block;
+  flex: none;
 }
 
 .logo {
-    max-width: 194px;
+  display: block;
+  width: 150px;
+  height: auto;
 }
 
 .account {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.name {
-    color: #66a3ff;
-    font-size: var(--small-size-text);
-}
-.name:hover {
-    color: #92bdff
-}
-
-.icon {
-    cursor: pointer;
-    position: relative;
-}
-.icon::before {
-    content: "Выйти";
-    position: absolute;
-    right: 26px;
-    top: 50%;
-    transform: translateY(-44%);
-    border-radius: 5px; 
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    padding: 3px;
-    width: 70px;
-    height: 30px;
-    background: #000;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    pointer-events: none;
+.round {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: #3a3a3a;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-.icon::after {
-    content: "";
-    position: absolute;
-    right: 26px;
-    top: 50%;
-    transform: translateY(-60%);
-    display: block;
-    rotate: 45deg;
-    justify-content: center;
-    width: 10px;
-    height: 10px;
-    background: #000;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    pointer-events: none;
+.round:hover {
+  background: #454545;
 }
 
-.icon:hover::before, .icon:hover::after{
-    opacity: 1;
+.round svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+.menu {
+  margin-right: 14px;
+  border-radius: 12px;
 }
 
 .profile {
-    display: flex;
-    gap: 4px;
-    padding: 5px;
-    border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 16px 0 6px;
+  background: #3a3a3a;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: background 0.2s;
 }
 
-
-
-@media (max-width: 576px) {
-    .logo {
-        max-width: 154px;
-    }
+.profile:hover {
+  background: #454545;
 }
 
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  background: #ffd544;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #d9ad1f;
+  color: #131313;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.name {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  background: #ffd544;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px #d9ad1f;
+  color: #131313;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: box-shadow 0.2s;
+}
+
+.login:hover {
+  box-shadow:
+    inset 0 0 0 1px #d9ad1f,
+    inset 0 -4px 0 #e6b92a,
+    0 6px 14px rgba(217, 173, 31, 0.35);
+}
+
+.login svg {
+  width: 20px;
+  height: 20px;
+}
+
+.loginShort {
+  display: none;
+}
+
+/* ниже iPad mini */
+@media (max-width: 743px) {
+  .header {
+    padding: 0 12px;
+  }
+
+  .wrapper {
+    height: 64px;
+  }
+
+  .logo {
+    width: 124px;
+  }
+
+  .round {
+    width: 44px;
+    height: 44px;
+  }
+
+  .menu {
+    margin-right: 6px;
+  }
+
+  .profile {
+    height: 44px;
+    padding: 0 6px;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .name {
+    display: none;
+  }
+
+  .login {
+    height: 44px;
+    padding: 0 14px;
+    font-size: 15px;
+  }
+
+  .loginFull {
+    display: none;
+  }
+
+  .loginShort {
+    display: inline;
+  }
+}

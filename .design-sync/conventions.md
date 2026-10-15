@@ -30,6 +30,8 @@ For your own layout glue, use the global classes and tokens in `styles.css`:
 | Font sizes | `var(--main-size-text)` 20px, `var(--small-size-text)` 15px, `var(--large--size-text)` 28px (note the double dash), `var(--title-section-font-size)` 50px for section titles |
 | Spacing unit | `var(--offset-base-size)` = 4px |
 
+`--r1`, `--o1`, `--r2` and `--o2` in `_ds_bundle.css` are **not tokens**. They are private animation variables for the `FirstScreen` ring pulse, registered with `@property` and driven by `@keyframes`, so they are intentionally absent from `:root`. Don't use them, define them or move them to `:root`. Ignore the "undefined variable" warning about them.
+
 Section titles in the landing are bold uppercase words with a short yellow underline («КАК», «ЕСЛИ», «ТО»). Reuse the existing sections (`Steps`, `Tiles`, `MapSection`, `Video`) rather than imitating them.
 
 ## Component map
@@ -38,7 +40,7 @@ Section titles in the landing are bold uppercase words with a short yellow under
 - **Landing (full-width, no props):** `FirstScreen` (hero), `Header`, `Footer`, `Steps`, `Tiles`, `MapSection`, `Video`, `NotFound`.
 - **Auth forms (no props, self-contained):** `LoginForm`, `RegistrationForm`, `RestoreForm`, `ResetForm`.
 - **Profile:** `ChangePassword`, `Sessions`, `LogoutPage`, `ProfileMain`.
-- **Icons:** 20 `*Icon` components such as `ProfileIcon`, `LockIcon` and `PhoneIcon` (props `fill`, `width`, `height`, as strings like `"24px"`).
+- **Icons:** 21 `*Icon` components such as `ProfileIcon`, `LockIcon` and `PhoneIcon` (props `fill`, `width`, `height`, as strings like `"24px"`).
 
 Before using a component, read `components/<group>/<Name>/<Name>.prompt.md` and `<Name>.d.ts`. All global classes and tokens are in `styles.css` → `_ds_bundle.css`.
 

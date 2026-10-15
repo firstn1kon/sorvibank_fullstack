@@ -1,161 +1,284 @@
 .profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
 }
 
-
-
 .summary {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto 20px;
+}
+
+.summary svg {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 6px;
 }
 
 .name {
-    font-size: var(--large--size-text);
-    text-transform: uppercase;
-    font-weight: 700;
+  color: #131313;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hint {
+  display: block;
+  color: #757575;
+  font-size: 15px;
 }
 
 .profileItem {
-    padding: 4px;
-    gap: 10px;
-    display: flex;
-    align-items: center;
-    background: #eaf1f7;
-    width: 100%;
-    max-width: 500px;
-    height: min-content;
-    margin: 2px 0px;
-    border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: min-content;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 16px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s;
 }
 
 .profileItem:hover {
-    background: #f1f7fc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
-
-
-.profileItem:first-child {
-        border-radius: 15px 15px 4px 4px;
-}
-
-.profileItem:last-child {
-        border-radius: 4px 4px 15px 15px;
-}
-
-.edit {
-    display: flex;
-    justify-content: center;
-    cursor: pointer;
-    width: auto;
-    height: auto;
-    padding: 3px;
-    flex-shrink: 0;
-    transition: all 0.3s;
-}
-.edit:hover {
-
-    background: #ffd544;
-    border-radius: 50%
-
-}
-
-
 
 .icon {
-    width: 50px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  background: #f3f3f3;
+  border-radius: 14px;
+}
 
+.icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.active .icon {
+  background: #ffd544;
+  box-shadow: inset 0 0 0 1px #d9ad1f;
 }
 
 .desc {
-    width: 100%;
-    min-width: 0;
-    flex-grow: 1;
-    text-wrap: wrap;
-    overflow-wrap: anywhere;
-
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 4px;
+  min-width: 0;
+  color: #757575;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
 .desc span {
-    color: #636363;
-    font-weight: 300;
-    padding-left: 7px;
+  color: #757575;
+  font-weight: 400;
 }
 
+.title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: #131313;
+  font-size: 17px;
+  font-weight: 700;
+}
 
+.desc .current {
+  padding: 3px 8px;
+  background: #fff6d6;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px #d9ad1f;
+  color: #131313;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.desc .meta {
+  color: #757575;
+  font-size: 14px;
+}
+
+.edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  box-sizing: border-box;
+  padding: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 1px #e3e3e3;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.edit:hover {
+  background: #fff6d6;
+  box-shadow: inset 0 0 0 1px #d9ad1f;
+}
+
+.active_edit {
+  background: #fff6d6;
+  box-shadow: inset 0 0 0 1px #d9ad1f;
+}
+
+.edit svg {
+  width: 22px;
+  height: 22px;
+}
+
+.danger {
+  justify-content: center;
+  gap: 10px;
+  height: 52px;
+  margin-top: 4px;
+  padding: 0 16px;
+  background: #fcf4f4;
+
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1.5px #e22121;
+  color: #e22121;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.danger:hover {
+  background: #fdeaea;
+  box-shadow: inset 0 0 0 1.5px #e22121;
+}
+
+.danger svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* Высота строки и шрифт совпадают с .title — при переходе в режим редактирования ничего не сдвигается */
 .editItem {
-    display: inline-flex;
-    gap: 5px;
-    margin-left: 5px;
-    flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  height: 1.4em;
 }
 
-
+/* Отрицательные margin компенсируют padding: текст в инпуте стоит ровно там же, где был текст .title,
+   а рамка (box-shadow) рисуется вокруг, не влияя на раскладку */
 .inputName {
-    font-size: 16px;
-    width: 100%;
-    max-width: 120px;
-    border-radius: 4px;
-    transition: box-shadow 0.3s;
-    box-shadow: 0px 0px 0px 2px #bebebe;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  max-width: 220px;
+  box-sizing: content-box;
+  height: 1.4em;
+  margin: -4px -8px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #e3e3e3;
+  color: inherit;
+  font: inherit;
+  line-height: inherit;
+  transition: box-shadow 0.2s;
 }
 
 .inputName:focus {
-    background: #f7f3ee;
-    box-shadow: none;
-    box-shadow: 0px 0px 0px 2px #F59E0B;
-
+  outline: none;
+  background: #fff;
+  box-shadow: inset 0 0 0 1.5px #d9ad1f;
 }
 
-
-
-
-
-
-
+.accept {
+  display: flex;
+  flex-shrink: 0;
+  margin-left: 8px;
+  cursor: pointer;
+}
 
 @media (max-width: 992px) {
-    .profileItem {
-        height: auto;
-    }
+  .profileItem {
+    height: auto;
+  }
 }
 
 @media (max-width: 768px) {
-   
-    .summary {
-        margin-bottom: 24px;
-    }
+  .summary {
+    margin-bottom: 16px;
+  }
 
-    .summary svg {
-        width: 72px;
-        height: 72px;
-    }
+  .summary svg {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 @media (max-width: 576px) {
-   .desc {
-        font-size: 16px;
+  .profileItem {
+    gap: 12px;
+    padding: 12px;
+    border-radius: 16px;
+  }
 
-   }
+  .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
 
+  .icon svg {
+    width: 24px;
+    height: 24px;
+  }
 
-    .icon {
-        width: 50px;
-        height: 50px;
-    }
+  .title {
+    font-size: 16px;
+  }
 
-    .summary svg {
-        width: 56px;
-        height: 56px;
-    }
+  .desc .meta {
+    font-size: 13px;
+  }
 
-   
+  .danger {
+    height: 48px;
+  }
+
+  .name {
+    font-size: 24px;
+  }
+
+  .hint {
+    font-size: 14px;
+  }
+
+  .summary svg {
+    width: 44px;
+    height: 44px;
+  }
 }

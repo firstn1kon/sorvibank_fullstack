@@ -53,10 +53,17 @@ const ProfileLayout = () => {
                                 <div className={styles.navDesc}>Cменить пароль</div>
                             </NavLink>
                         </li>
+                        <li aria-hidden="true" className={styles.divider}></li>
                         <li>
-                            <NavLink end to="/me/logout" className={({ isActive }) => (isActive ? `${styles.navItem} ${styles.active}` : styles.navItem)}>
+                            <NavLink
+                                end
+                                to="/me/logout"
+                                className={({ isActive }) =>
+                                    isActive ? `${styles.navItem} ${styles.logout} ${styles.active} ` : `${styles.navItem} ${styles.logout}`
+                                }
+                            >
                                 <div className={styles.navIcon}>
-                                    <LogoutIcon fill={'#000'} />
+                                    <LogoutIcon fill="#e22121" />
                                 </div>
                                 <div className={styles.navDesc}>Выход</div>
                             </NavLink>

@@ -56,7 +56,7 @@ const ChangePassword = () => {
         <div className={`mt-2 ${styles.container}`}>
             <div className={ownStyles.warning}>
                 <div className={ownStyles.icon}>
-                    <WarningIcon fill="#F59E0B" width="34px" height="34px" />
+                    <WarningIcon fill="#e6621a" width="34px" height="34px" />
                 </div>
                 <div>
                     <p>После смены пароля будет осуществлен выход со всех устройств кроме текущего</p>

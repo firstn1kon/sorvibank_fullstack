@@ -29,6 +29,7 @@ export { default as HomeIcon } from './components/ui/icons/HomeIcon';
 export { default as LockIcon } from './components/ui/icons/LockIcon';
 export { default as LogoutIcon } from './components/ui/icons/LogoutIcon';
 export { default as LogoutPageIcon } from './components/ui/icons/LogoutPageIcon';
+export { default as MenuIcon } from './components/ui/icons/MenuIcon';
 export { default as PencilIcon } from './components/ui/icons/PencilIcon';
 export { default as PhoneIcon } from './components/ui/icons/PhoneIcon';
 export { default as ProfileIcon } from './components/ui/icons/ProfileIcon';

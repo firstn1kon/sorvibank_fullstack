@@ -1,48 +1,46 @@
-import Input from "./Input"
-import { IMyInput } from "./Input"
-import { FC, useState } from "react"
+import Input from './Input';
+import { IMyInput } from './Input';
+import { FC, useState } from 'react';
 
-interface IPasswordInput extends Omit<IMyInput, "label"> {
-    label?: string
+interface IPasswordInput extends Omit<IMyInput, 'label'> {
+    label?: string;
 }
 
-const PasswordInput:FC<IPasswordInput> = 
-    (
-        {
-            value,
-            label="Пароль",
-            onChange,
-            onBlur,
-            name="password",
-            extraClass,
-            placeholder="введите пароль",
-            disabled,
-            error,
-        }
-    ) => {
-
-    const [isVisible, setIsVisible] = useState(true)
+const PasswordInput: FC<IPasswordInput> = ({
+    value,
+    label = 'Пароль',
+    onChange,
+    onBlur,
+    name = 'password',
+    extraClass,
+    placeholder = 'введите пароль',
+    disabled,
+    error,
+    bg,
+}) => {
+    const [isVisible, setIsVisible] = useState(true);
 
     const onIconClick = () => {
-        setIsVisible(prev => !prev)
-    }
+        setIsVisible((prev) => !prev);
+    };
 
     return (
-        <Input 
+        <Input
             label={label}
             value={value}
             onChange={onChange}
             onBlur={onBlur}
             name={name}
-            type={isVisible ? "password" : "text"}
-            icon={isVisible ? "PasswordIconCrossed" : "PasswordIcon"}
+            type={isVisible ? 'password' : 'text'}
+            icon={isVisible ? 'PasswordIconCrossed' : 'PasswordIcon'}
             extraClass={extraClass}
             onIconClick={onIconClick}
             placeholder={placeholder}
             disabled={disabled}
             error={error}
+            bg={bg}
         />
-    )
-}
+    );
+};
 
-export default PasswordInput
+export default PasswordInput;
