@@ -16,7 +16,7 @@
 - `[RENDER_THIN] Modal`: renders through a portal with a fixed overlay, so the measured height is 0. The screenshot shows the LoginForm inside the modal correctly.
 - `[RENDER_THIN] WindowsIcon`: a small multicolor glyph with no fill prop. The screenshot is correct.
 - `[DOCS_UNMAPPED] <Name>Icon` for every icon: icons have no `docsMap` entry because they take the `icons` group from their folder. Harmless.
-- Undefined custom properties `--r1`, `--o1`, `--r2`, `--o2` (12 uses in `_ds_bundle.css`): these are **animation variables, not design tokens**. They belong to the FirstScreen ring pulse (`firstScreen.module.css`). They are registered with `@property` (initial-value 0) and driven by `@keyframes ring1/ring2`, so they are intentionally absent from `:root`. Do not add them to `:root` or treat them as tokens. Claude Design flags them; triage as benign.
+- FirstScreen ring pulse: it used to animate the custom properties `--r1/--o1/--r2/--o2` through `@property`. Claude Design flagged them as undefined tokens even after they were registered. Since Oct 2026 the pulse animates `transform` and `opacity` on `.rings::before/::after` (`@keyframes ring`), so no custom properties are involved. Do not reintroduce animated custom properties.
 - `tsc` warns TS4023 in `api/hooks/useRegisterUser.tsx` during declaration emit. Harmless.
 
 ## Floor cards (unauthored on purpose)

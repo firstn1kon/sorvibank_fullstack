@@ -6,7 +6,7 @@ import LogoutIcon from '../../ui/icons/LogoutIcon';
 
 const LogoutPage = () => {
     const { data: sessions } = useSseions();
-    const { mutate: doLogout, isPending } = useLogout();
+    const { mutate: doLogout } = useLogout();
 
     const currentSession = sessions?.find((session) => session.current) || null;
     const IconDevice = getDeviceIcon(currentSession?.os);
