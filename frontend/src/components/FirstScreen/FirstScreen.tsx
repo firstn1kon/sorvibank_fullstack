@@ -37,8 +37,12 @@ function FirstScreen() {
                     {user?.name ?? (isLoading ? <DotLoader bg={'#fff'} /> : 'Войти')}
                 </button>
                 <div className={styles.logo}>
-                    <span className={styles.rings} aria-hidden="true" />
-                    <img className={styles.logo_img} src={logo} alt="sorvibank" />
+                    <div className={styles.logo_mark}>
+                        <span className={styles.logo_center} aria-hidden="true">
+                            <span className={styles.rings} />
+                        </span>
+                        <img className={styles.logo_img} src={logo} alt="sorvibank" />
+                    </div>
                     <div className={styles.slogan}>
                         Забери <span>все</span> или ничего <p>Аутдор игра нового поколения</p>
                     </div>

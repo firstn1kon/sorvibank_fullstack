@@ -31,41 +31,30 @@ body {
 }
 
 .container {
-    max-width: 1140px;
-    margin: 0 auto;
+    --gutter: 16px;
+    width: min(100% - 2 * var(--gutter), 1140px);
+    margin-inline: auto;
     position: relative;
     z-index: 1;
-    padding: 5px;
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 1920px) {
     .container {
-        max-width: 960px;
-       
+        width: min(100% - 2 * var(--gutter), 1340px);
     }
 }
+
 @media (max-width: 992px) {
-    .container {
-        max-width: 720px;
-    }
     :root {
         --large--size-text: 22px;
         --title-section-font-size: 35px;
         --main-size-text: 17px;
     }
 }
-@media (max-width: 768px) {
-    .container {
-        max-width: 680px;
-      
-    }
-}
 
 @media (max-width: 576px) {
     .container {
-        width: 100%;
-        padding: 0 15px;
-    
+        --gutter: 15px;
     }
     :root {
         --main-size-text: 15px;

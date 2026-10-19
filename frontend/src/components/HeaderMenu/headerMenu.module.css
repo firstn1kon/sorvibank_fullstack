@@ -1,0 +1,243 @@
+.root {
+  position: absolute;
+  top: calc(100% + 20px);
+  right: 0;
+}
+
+.overlay {
+  display: none;
+}
+
+.menu {
+  z-index: 100;
+  width: 300px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* закрытие: forwards — чтобы элемент не мигнул обратно до размонтирования */
+.closing .menu,
+.closing .overlay {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
+/* пока меню уезжает, клики проходят сквозь него */
+.closing {
+  pointer-events: none;
+}
+
+.handle,
+.head {
+  display: none;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  --plate: #f3f3f3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px;
+  border-radius: 14px;
+  color: #131313;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.item:hover {
+  background: #f3f3f3;
+}
+
+.icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: var(--plate);
+  color: #131313;
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+
+.plateFill {
+  fill: var(--plate);
+}
+
+.active {
+  --plate: #ffd544;
+  background: #fff8db;
+}
+
+.active:hover {
+  background: #fff8db;
+}
+
+.active .icon {
+  box-shadow: inset 0 0 0 1px #d9ad1f;
+}
+
+.divider {
+  height: 1px;
+  background: #e3e3e3;
+  margin: 6px 8px;
+}
+
+/* мобильный: шторка снизу */
+@media (max-width: 576px) {
+  .overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: rgba(19, 19, 19, 0.35);
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  .menu {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: 60vh;
+    height: 60dvh;
+    padding: 0;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.16);
+    animation: slideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .closing .menu {
+    animation: slideDown 0.25s ease-in forwards;
+  }
+
+  .handle {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    padding: 10px 0 6px;
+  }
+
+  .handle::before {
+    content: '';
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background: #e3e3e3;
+  }
+
+  .head {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 20px 8px;
+  }
+
+  .title {
+    margin: 0;
+    font-weight: 700;
+    font-size: 20px;
+    color: #131313;
+  }
+
+  .close {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    background: #f3f3f3;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #131313;
+  }
+
+  .close svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .list {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 4px 12px calc(24px + env(safe-area-inset-bottom));
+  }
+
+  .icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* не none: без анимации не придёт animationend и меню не размонтируется */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .menu,
+  .closing .overlay,
+  .closing .menu {
+    animation-duration: 1ms;
+  }
+}

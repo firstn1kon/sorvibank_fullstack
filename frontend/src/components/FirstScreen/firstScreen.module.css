@@ -24,7 +24,7 @@
 }
 
 .logo {
-   margin-top: 100px;
+   margin-top: 150px;
    display: grid;
    grid-template-columns: 1fr;
    gap: 120px 0px;
@@ -34,10 +34,38 @@
     object-fit: contain;
 }
 
-.rings {
-  position: absolute;
-  top: 10px; left: -187px; width: 528px; height: 528px;
-  pointer-events: none;
+/* обёртка ровно по размеру картинки логотипа */
+.logo_mark {
+    position: relative;
+    justify-self: start;
+}
+
+/* квадрат поверх иконки «C»: она слева и высотой во весь логотип */
+.logo_center {
+    --rings-size: 528px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    aspect-ratio: 1;
+    pointer-events: none;
+}
+
+/* круги центрируются через margin, чтобы не конфликтовать с transform в анимации */
+.rings,
+.logo_center::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--rings-size);
+    height: var(--rings-size);
+    margin: calc(var(--rings-size) / -2) 0 0 calc(var(--rings-size) / -2);
+    pointer-events: none;
+}
+
+.logo_center::after {
+    background: url(../../assets/circles.svg) center / contain no-repeat;
 }
 
 .rings::before,
@@ -54,18 +82,6 @@
 
 .rings::after {
   animation-delay: -6s;
-}
-
-.logo::after {
-    content: ""; 
-    display: block;
-    height: 528px;
-    width: 528px;
-    position: absolute;
-    top: 10px;
-    left: -187px;
-    background-image: url(../../assets/circles.svg);
-    pointer-events: none;
 }
 
 .slogan {
@@ -117,7 +133,22 @@
     
 }
 
-@keyframes ring{0%{transform:scale(0);opacity:0}20%{opacity:.15}55%{opacity:.1}100%{transform:scale(1);opacity:0}}
+@keyframes ring{
+    0%{
+        transform:scale(0);
+        opacity:0
+    }
+    20%{
+        opacity:.15
+    }
+    55%{
+        opacity:.1
+    }
+    100%{
+        transform:scale(1);
+        opacity:0
+    }
+}
 
 
 @media (max-width: 768px) {
@@ -139,31 +170,7 @@
 
 
 @media (max-width: 576px) {
-    .logo::after {
-        height: 528px;
-        width: 528px;
-        top: -40px;
-        left: -180px;
-    }
-
-    .rings { 
-        top: -40px; 
-        left: -180px; 
-    }
-
-
-}
-
-@media (max-width: 442px) {
-    .logo::after {
-        height: 528px;
-        width: 528px;
-        top: -60px;
-        left: -200px;
-    }
-
-    .rings { 
-        top: -65px; 
-        left: -195px; 
+    .logo {
+        margin-top: 100px;
     }
 }
