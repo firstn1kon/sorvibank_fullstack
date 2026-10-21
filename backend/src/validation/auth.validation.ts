@@ -1,16 +1,16 @@
 import { z } from 'zod';
 
-const emailField = z.string().regex(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/, 'Некорректный формат email');
+export const emailField = z.string().regex(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+$/, 'Некорректный формат email');
 
 const passwordField = z.string().min(8, 'Минимум 8 символов');
 
-const phoneField = z
+export const phoneField = z
     .string()
     .transform((v) => v.replace(/\D/g, ''))
     .refine((v) => v.length === 11, 'Введите телефон полностью');
 
 // Фронт разрешает только одно кириллическое слово без пробелов — зеркалим ровно это.
-const nameField = z.string().min(2, 'Минимум 2 символа');
+export const nameField = z.string().min(2, 'Минимум 2 символа');
 // .regex(/^[А-Яа-яЁё]+$/, 'Только кириллица');
 
 const codeField = z

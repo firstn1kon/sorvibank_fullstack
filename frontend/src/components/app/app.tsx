@@ -13,6 +13,8 @@ import ProfileLayout from '../Layout/profileLayout/ProfileLayout';
 import Sessions from '../profile/sessions/Sessions';
 import ChangePassword from '../profile/change-password/ChangePassword';
 import LogoutPage from '../profile/logout-page/LogoutPage';
+import { OnlyAdmin } from '../Layout/AdminRoute';
+import Users from '../admin/users/Users';
 
 function App() {
     const setAuth = useAuthStore((state) => state.setAuth);
@@ -29,19 +31,7 @@ function App() {
 
     return (
         <>
-            <Toaster
-                position="top-right"
-                richColors
-                expand
-                closeButton
-                visibleToasts={5}
-                offset={{ top: '120px' }}
-                // toastOptions={{
-                //     style: {
-                //         marginTop: '100px',
-                //     },
-                // }}
-            />
+            <Toaster position="top-right" richColors expand closeButton visibleToasts={5} offset={{ top: '120px' }} />
             <Routes location={location}>
                 <Route element={<MainLayout />}>
                     //Public Routes
@@ -60,6 +50,11 @@ function App() {
                             <Route path="sessions" element={<Sessions />} />
                             <Route path="change-password" element={<ChangePassword />} />
                             <Route path="logout" element={<LogoutPage />} />
+                        </Route>
+                        <Route element={<OnlyAdmin />}>
+                            <Route path="admin">
+                                <Route path="users" element={<Users />} />
+                            </Route>
                         </Route>
                     </Route>
                 </Route>

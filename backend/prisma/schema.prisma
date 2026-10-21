@@ -22,6 +22,8 @@ enum RevokeReason {
   LOGOUT_ALL
   SESSION_REVOKED
   REUSE_DETECTED
+  BLOCKED
+  ADMIN_PASSWORD_RESET
 }
 
 model User {
@@ -32,6 +34,9 @@ model User {
   name          String?
   role          Role      @default(USER)
   emailVerified Boolean   @default(false)
+  // null — активен; дата — заблокирован админом. Проверяется в authMiddleware/login/refresh.
+  blockedAt     DateTime?
+  blockedReason String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 

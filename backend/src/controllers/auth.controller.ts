@@ -29,17 +29,14 @@ import {
     revokeOtherUserRefreshTokens,
     revokeRefreshToken,
 } from '../models/refreshToken.model';
-import { createResetCode, findValidCode, invalidateUserCodes, markCodeUsed } from '../models/passwordResetCode.model';
+import { findValidCode, markCodeUsed } from '../models/passwordResetCode.model';
 import { generateCsrfToken, generateRefreshToken, hashToken, signAccessToken } from '../utils/tokens';
 import { REFRESH_COOKIE, clearAuthCookies, setAuthCookies, setCsrfCookie } from '../utils/cookies';
 import { parseDeviceInfo } from '../utils/deviceInfo';
+import { normalizePhone } from '../utils/phone';
+import { issueResetCode } from '../utils/resetCode';
 
 const REFRESH_TOKEN_TTL_DAYS = Number(process.env.REFRESH_TOKEN_TTL_DAYS ?? 30);
-const RESET_CODE_TTL_MINUTES = Number(process.env.RESET_CODE_TTL_MINUTES ?? 15);
-
-function normalizePhone(phone: string): string {
-    return phone.replace(/\D/g, '');
-}
 
 async function getVerifiedSession(req: AuthRequest | Request) {
     const rawToken = req.cookies?.[REFRESH_COOKIE];
@@ -115,6 +112,11 @@ export async function login(req: Request, res: Response) {
         throw new AppError('Неверный логин или пароль', 401);
     }
 
+    // Проверяем после пароля, чтобы не раскрывать факт существования аккаунта.
+    if (user.blockedAt) {
+        throw new AppError('Аккаунт заблокирован', 403);
+    }
+
     await issueSession(res, req, { id: user.id, role: user.role });
 
     res.json({ user: toPublicUser(user) });
@@ -162,6 +164,12 @@ export async function refresh(req: Request, res: Response) {
     const user = await findUserById(record.userId);
     if (!user) {
         throw new AppError('Пользователь не найден', 404);
+    }
+
+    if (user.blockedAt) {
+        await revokeRefreshToken(record.id, RevokeReason.BLOCKED);
+        clearAuthCookies(res);
+        throw new AppError('Аккаунт заблокирован', 403);
     }
 
     await revokeRefreshToken(record.id, RevokeReason.ROTATED);
@@ -265,14 +273,7 @@ export async function restore(req: Request, res: Response) {
         throw new AppError('Пользователь с таким email не найден', 404);
     }
 
-    const code = String(Math.floor(100000 + Math.random() * 900000));
-    const expiresAt = new Date(Date.now() + RESET_CODE_TTL_MINUTES * 60 * 1000);
-
-    await invalidateUserCodes(user.id);
-    await createResetCode(user.id, code, expiresAt);
-
-    // TODO: подключить реальную отправку письма (nodemailer / Resend). Пока код логируется.
-    console.log(`[DEV] Код восстановления для ${user.email}: ${code} (действует ${RESET_CODE_TTL_MINUTES} мин)`);
+    await issueResetCode(user);
 
     res.json({ message: 'Код отправлен на почту' });
 }

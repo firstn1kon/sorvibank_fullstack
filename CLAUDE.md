@@ -49,10 +49,10 @@ Backend к фронту пока не подключён — это следую
 ### Структура (`backend/src`)
 
 ```
-routes/{index.ts, auth.routes.ts}
-controllers/auth.controller.ts
+routes/{index.ts, auth.routes.ts, admin.routes.ts}
+controllers/{auth.controller.ts, admin.controller.ts}
 models/{prisma.ts, user.model.ts, refreshToken.model.ts, passwordResetCode.model.ts}
-middleware/{AppError.ts, asyncHandler.ts, errorHandler.ts, auth.middleware.ts, csrf.middleware.ts}
+middleware/{AppError.ts, asyncHandler.ts, errorHandler.ts, auth.middleware.ts, csrf.middleware.ts, requireAdmin.ts}
 validation/auth.validation.ts   — zod-схемы, зеркалят правила фронтовых форм
 utils/{tokens.ts, cookies.ts}
 ```
@@ -62,7 +62,7 @@ utils/{tokens.ts, cookies.ts}
 
 ### Модели БД
 
-- `User` — id (uuid), email (unique), phone (unique, нормализован до 11 цифр), passwordHash, name?, role (`USER`/`ADMIN`, дефолт `USER`), emailVerified (дефолт false), createdAt/updatedAt
+- `User` — id (uuid), email (unique), phone (unique, нормализован до 11 цифр), passwordHash, name?, role (`USER`/`ADMIN`, дефолт `USER`), emailVerified (дефолт false), blockedAt? / blockedReason? (null — активен), createdAt/updatedAt
 - `RefreshToken` — userId, tokenHash (sha256 от случайного токена), deviceInfo, ipAddress, expiresAt, revokedAt
 - `EmailVerificationToken` — задел на будущее, эндпоинтов верификации email пока нет
 - `PasswordResetCode` — 6-значный код восстановления пароля, TTL 15 мин, одноразовый
@@ -86,6 +86,21 @@ utils/{tokens.ts, cookies.ts}
 
 Восстановление пароля: код генерируется и **логируется в консоль сервера** (`[DEV] Код восстановления для ...`) —
 реальная отправка email не подключена, есть `// TODO` в `auth.controller.ts` (`restore`).
+
+### Роли и admin (`/api/admin/*`)
+
+- `authMiddleware` после проверки JWT **читает `role` и `blockedAt` из БД** (`findUserAuthState`) — роль в JWT
+  лишь подсказка, разжалование/блокировка действуют сразу. Заблокирован → **403** «Аккаунт заблокирован»
+  (не 401, чтобы фронт не уходил в refresh-цикл). `login` (после проверки пароля) и `refresh` тоже отдают 403.
+- `requireAdmin` (`middleware/requireAdmin.ts`) — после `authMiddleware`, не ADMIN → 403.
+- Ручки (`routes/admin.routes.ts`, все мутирующие — с CSRF):
+  `GET /users?page&limit&search&role&blocked&sort` → `{ items, total, page, limit }`,
+  `GET /users/:id` (+ активные сессии), `PATCH /users/:id` (email/name/phone; смена email сбрасывает `emailVerified`),
+  `POST /users/:id/block` (`{ reason? }`, отзывает все сессии), `POST /users/:id/unblock`,
+  `POST /users/:id/reset-password` (отзывает сессии + выдаёт reset-код через `utils/resetCode.ts`, как `/auth/restore`).
+- Над админами block/reset-password запрещены (403). Роль через API не меняется — только
+  `npm run make-admin -- user@mail.ru` (`backend/scripts/make-admin.ts`) или Prisma Studio.
+- Аудит-лог действий админа — пока не сделан (отложен).
 
 Ошибки — через `AppError` + централизованный `errorHandler` (`ZodError`→400, Prisma `P2002`→409, `AppError`→свой код, иначе→500).
 
@@ -122,6 +137,6 @@ npm run prisma:studio    # GUI для просмотра БД
   auth-состояние, protected route для `/account`) — фронт сейчас **не трогаем**, это отдельная задача.
 - Игровая механика: раунды, зоны карты, коды, призы, лидерборд — ещё не спроектирована.
 - Верификация email (`EmailVerificationToken` в схеме есть, эндпоинтов нет).
-- Admin-логика (`role: ADMIN` в схеме есть, реальных прав/мидлвары нет).
+- Admin: аудит-лог действий, смена роли через API.
 - Реальная отправка email (восстановление пароля сейчас только логируется в консоль).
 - Полная докеризация (Dockerfile для backend/frontend, prod docker-compose) для деплоя — Postgres в Docker сейчас только для локальной разработки.

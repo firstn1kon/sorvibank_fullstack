@@ -18,14 +18,20 @@ import CancelIcon from '../ui/icons/CancelIcon';
 const ProfileMain = () => {
     const { data: user } = useFetchme();
     const [isEdit, setEdit] = useState(false);
-    const [name, setName] = useState(user.name);
+    const [name, setName] = useState('');
+
+    const { mutate: doChangeName } = useUpdateMe({
+        onSuccess: () => setEdit(false),
+    });
+
+    if (!user) return null;
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target?.value);
     };
 
     const handleEdit = () => {
-        setName(user.name);
+        setName(user.name ?? '');
         setEdit((prev) => !prev);
     };
 
@@ -37,13 +43,10 @@ const ProfileMain = () => {
         doChangeName({ name });
     };
 
-    const { mutate: doChangeName } = useUpdateMe({
-        onSuccess: () => setEdit(false),
-    });
     return (
         <>
             <div className={styles.summary}>
-                <span className={styles.name}>{user?.name}</span>
+                <span className={styles.name}>{user.name}</span>
                 <span className={styles.hint}>Данные вашего профиля</span>
             </div>
             <ul className={styles.profile}>
